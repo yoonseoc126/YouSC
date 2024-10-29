@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "413127119820",
+    "project_id": "yousc-903e0",
+    "storage_bucket": "yousc-903e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413127119820:android:b5863e325a9fc76d560369",
+        "android_client_info": {
+          "package_name": "com.csci310.yousc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6T7Imobv6_pIfLfJ3pNeksGsD1y6nPUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
