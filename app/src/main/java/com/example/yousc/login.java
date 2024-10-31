@@ -1,2 +1,4 @@
-package com.example.yousc;public class login {
+package com.example.yousc;
+
+public class login {
 }

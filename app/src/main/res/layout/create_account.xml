@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".createAccount"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="100dp"
+        android:text="Create Account!"
+        android:textColor="@color/white"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="Enter your account details belor or"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <Button
+        android:id="@+id/loginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="none"
+        android:text="login"
+        android:paddingLeft="4dp"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toRightOf="@id/subTitle"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/loginLink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Password"
+            android:background="@color/white"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/createAccountButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="Create Account"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/pass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+
+
+    <!--    <EditText-->
+    <!--        android:background="@color/white"-->
+    <!--        android:inputType="text"-->
+    <!--        android:padding="3dp"-->
+    <!--        android:text="Email"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="22sp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/createAccount"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_margin="24dp"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5" />-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/pass"-->
+    <!--        android:layout_width="330dp"-->
+    <!--        android:layout_height="48dp"-->
+    <!--        android:background="@color/white"-->
+    <!--        android:inputType="text"-->
+    <!--        android:padding="3dp"-->
+    <!--        android:text="Password"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="22sp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/username"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_margin="16dp" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
