@@ -57,4 +57,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-database")
 
+    //TODO: double check if we can use Firebase auth dependency
+    implementation("com.google.firebase:firebase-auth")
+
 }

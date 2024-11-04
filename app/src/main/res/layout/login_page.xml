@@ -18,8 +18,7 @@
         android:textSize="52sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf=""
-        app:layout_constraintTop_toBottomOf=""
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <TextView
@@ -31,16 +30,16 @@
         android:text="Login below or"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf=""
-        />
+        app:layout_constraintTop_toBottomOf="@id/welcome" />
 
     <Button
         android:id="@+id/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="none"
+        android:background="@null"
         android:paddingBottom="40dp"
         android:text="create an account"
         android:textColor="@color/blue"
@@ -113,7 +112,7 @@
         android:id="@+id/forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="none"
+        android:background="@null"
         android:text="Forgot Password"
         android:textColor="@color/black"
         android:textSize="16sp"
