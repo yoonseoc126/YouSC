@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">YouSC</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="details_button_text"><u>Details</u></string>
+    <string name="route_me_button_text"><u>Route Me!</u></string>
 </resources>

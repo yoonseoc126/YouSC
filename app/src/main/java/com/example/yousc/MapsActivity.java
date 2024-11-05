@@ -2,8 +2,13 @@ package com.example.yousc;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -60,6 +65,44 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     @Override
     public boolean onMarkerClick(final Marker marker) {
         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_pin));
-        return false;
+
+        // Inflate the custom layout
+        View dialogView = getLayoutInflater().inflate(R.layout.event_details_window, null);
+
+        // Get references to the TextViews and buttons
+        TextView titleView = dialogView.findViewById(R.id.eventTitle);
+        titleView.setText(marker.getTitle()); // Set the title to the marker's title
+
+        Button viewCommentsButton = dialogView.findViewById(R.id.viewCommentsButton);
+        Button checkButton = dialogView.findViewById(R.id.checkButton);
+        Button xButton = dialogView.findViewById(R.id.xButton);
+        ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
+
+        // Create the AlertDialog
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView) // Set the custom layout
+                .create();
+
+        // Set up the button click listeners
+        viewCommentsButton.setOnClickListener(v -> {
+            // Handle the button click (e.g., navigate to comments activity)
+            startActivity(new Intent(this, CommentsActivity.class));
+            dialog.dismiss(); // Dismiss the dialog after the button is clicked
+        });
+
+        // Change marker back to red when the dialog is closed
+        closeButton.setOnClickListener(v -> {
+            // Set the marker's icon back to red
+            dialog.dismiss(); // Dismiss the dialog on cancel
+        });
+        // Change marker back to red when the dialog is dismissed
+        dialog.setOnDismissListener(dialogInterface -> {
+            // Set the marker's icon back to red
+            marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
+        });
+
+        dialog.show(); // Show the dialog
+
+        return true; // Return true to indicate we have handled the click
     }
 }
