@@ -32,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     TextInputEditText editEmail, editPass;
-    Button signIn, signUp;
+    Button signIn, signUp, forgotPass;
     private FirebaseAuth mAuth;
 
     @Override
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         signIn = findViewById(R.id.signIn);
         signUp = findViewById(R.id.createAccountButt);
+        forgotPass = findViewById(R.id.forgotPass);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -60,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, createAccount.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ForgotPassword.class);
                 startActivity(intent);
                 finish();
             }
