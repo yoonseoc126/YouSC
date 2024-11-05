@@ -59,4 +59,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.1.0")
 
 
+    //TODO: double check if we can use Firebase auth dependency
+    implementation("com.google.firebase:firebase-auth")
+
 }

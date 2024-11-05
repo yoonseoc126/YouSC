@@ -38,7 +38,7 @@
         android:id="@+id/loginLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="none"
+        android:background="@android:color/transparent"
         android:text="login"
         android:paddingLeft="4dp"
         android:textColor="@color/blue"
