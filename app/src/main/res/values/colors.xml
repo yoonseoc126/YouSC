@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="usc_red">#990101</color>
     <color name="usc_yellow">#FFCC00</color>
-    <color name="light_gray">#EEF1F4</color>
-    <color name="dark_gray">#667080</color>
+    <color name="light_gray">#DADBDD</color>
+    <color name="dark_gray">#454C57</color>
 </resources>
