@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define your custom text appearance style -->
+    <style name="BottomNavigationTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/inter</item> <!-- Reference the font -->
+    </style>
+
+</resources>
