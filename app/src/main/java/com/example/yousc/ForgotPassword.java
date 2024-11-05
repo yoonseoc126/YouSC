@@ -32,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ForgotPassword extends AppCompatActivity {
 
     TextInputEditText editEmail, editPass;
-    Button signIn, signUp, forgotPass, sendEmail;
+    Button signIn, signUp, forgotPass, sendResetEmail;
     private FirebaseAuth mAuth;
 
     @Override
@@ -40,23 +40,49 @@ public class ForgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.forgot_password);
+        String email;
 
-        sendEmail = findViewById(R.id.send_email_button);
+        TextInputLayout emailLayout = findViewById(R.id.email);
+        editEmail = (TextInputEditText) emailLayout.getEditText();
+        email = String.valueOf(editEmail.getText());
+        sendResetEmail = findViewById(R.id.send_email_button);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 //        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, World!");
 
-        sendEmail.setOnClickListener(new View.OnClickListener() {
+        sendResetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, createAccount.class);
-//                startActivity(intent);
-//                finish();
+                String email;
+                email = String.valueOf(editEmail.getText());
+
+                if(TextUtils.isEmpty(email))
+                {
+                    Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //TODO: add error check for when email is not associated with user password
+                mAuth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "Email sent.");
+                                    Toast.makeText(ForgotPassword.this, "Email sent successfully!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ForgotPassword.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(ForgotPassword.this, "An error occurred. Please try later.", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
             }
         });
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

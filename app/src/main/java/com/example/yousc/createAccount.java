@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class createAccount extends AppCompatActivity {
     TextInputEditText editEmail, editPass;
-    Button signIn, signUp;
+    Button signUp;
+    TextView signIn;
     Integer userPK;
     private FirebaseAuth mAuth;
 

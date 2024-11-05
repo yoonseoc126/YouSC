@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/welcome"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:paddingTop="100dp"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
-        android:text="Login below or"
+        android:text="Login below or "
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,22 +37,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome" />
 
-    <Button
+    <TextView
         android:id="@+id/createAccountButt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:paddingBottom="40dp"
         android:text="create an account"
+        android:paddingTop="10dp"
         android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="italic"
+        android:onClick="onClick"
+        android:clickable="true"
         app:layout_constraintLeft_toRightOf="@id/loginTxt"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
@@ -73,9 +77,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pass"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:passwordToggleEnabled="true"
         app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,12 +100,13 @@
 
     <Button
         android:id="@+id/signIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="#a72828"
         android:text="Sign In"
-        android:textSize="14sp"
-        android:textStyle="italic"
+        android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_marginTop="25dp"
         app:layout_constraintTop_toBottomOf="@id/pass"
@@ -111,12 +118,10 @@
         android:id="@+id/forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
+        android:background="@android:color/transparent"
         android:text="Forgot Password"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signIn" />

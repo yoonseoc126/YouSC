@@ -32,7 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     TextInputEditText editEmail, editPass;
-    Button signIn, signUp, forgotPass;
+    Button signIn, forgotPass;
+    TextView signUp;
     private FirebaseAuth mAuth;
 
     @Override
