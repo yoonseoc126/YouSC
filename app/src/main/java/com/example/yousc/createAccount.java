@@ -7,13 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class createAccount extends AppCompatActivity {
     TextInputEditText editEmail, editPass;
     Button signIn, signUp;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,7 +59,25 @@ public class createAccount extends AppCompatActivity {
                     return;
                 }
 
-
+                firebaseAuth.createUserWithEmailAndPassword(email,pass)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+                        {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                {
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(createAccount.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(createAccount.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else {
+                                        Toast.makeText(createAccount.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
             }
         });
 
