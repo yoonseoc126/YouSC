@@ -3,4 +3,6 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="details_button_text"><u>Details</u></string>
     <string name="route_me_button_text"><u>Route Me!</u></string>
+    <string name="edit_button_text"><u>Edit</u></string>
+    <string name="delete_button_text"><u>Delete</u></string>
 </resources>

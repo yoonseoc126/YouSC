@@ -2,10 +2,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
     android:padding="16dp">
 
-    <!-- Title -->
+    <ImageButton
+        android:id="@+id/closeDescButton"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/down_arrow"
+        android:padding="0dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <TextView
         android:id="@+id/eventTitle"
         android:layout_width="0dp"
@@ -13,25 +26,17 @@
         android:text="Event Title"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toStartOf="@id/xButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/eventCloseButton"
-        android:layout_width="14dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/x"
-        android:background="@android:color/transparent"
-        app:tint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/closeDescButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Date and "Route Me" Button -->
     <TextView
         android:id="@+id/date"
         android:layout_width="0dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -39,40 +44,31 @@
         android:text="Oct 31, 2024, 04:00PM"
         app:layout_constraintEnd_toStartOf="@+id/routeMeButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventTitle"
-        app:layout_constraintBottom_toBottomOf="@id/detailsButton"/>
+        app:layout_constraintTop_toBottomOf="@id/eventTitle" />
 
-    <!-- ImageView for the SVG icon -->
-    <ImageView
-        android:id="@+id/routeMeIcon"
-        android:layout_width="14dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/info"
-        app:layout_constraintTop_toBottomOf="@id/eventTitle"
-        app:layout_constraintEnd_toStartOf="@id/detailsButton"
-        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
-        android:layout_marginEnd="2dp"/>
 
-    <!-- Address and "Details" Button -->
     <TextView
         android:id="@+id/address"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="230dp"
+        android:text="801-899 Childs Way, Los Angeles, CA 90089"
         android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
         android:textColor="@color/black"
-        android:text="123 Event St, City, State"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date"
-        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+        app:layout_constraintTop_toBottomOf="@id/date" />
+
 
     <ImageView
-        android:id="@+id/detailsIcon"
+        android:id="@+id/routeMeIcon"
         android:layout_width="12dp"
         android:layout_height="wrap_content"
         android:src="@drawable/map"
-        app:layout_constraintTop_toBottomOf="@id/date"
         app:layout_constraintEnd_toStartOf="@id/routeMeButton"
-        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"
+        app:layout_constraintBottom_toBottomOf="@id/date"
         android:layout_marginEnd="4dp"/>
 
     <Button
@@ -82,36 +78,37 @@
         android:background="@android:color/transparent"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:layout_marginTop="10dp"
         android:padding="0dp"
         android:text="@string/route_me_button_text"
         android:textColor="@color/usc_red"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date" />
+        app:layout_constraintBottom_toBottomOf="@id/routeMeIcon" />
 
     <TextView
         android:id="@+id/description_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:paddingTop="40dp"
+        android:paddingTop="15dp"
+        android:textColor="@color/dark_gray"
         android:text="Description"
-        app:layout_constraintEnd_toStartOf="@+id/routeMeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/address"
-        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+        />
 
     <TextView
         android:id="@+id/description_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"
-        android:paddingTop="100dp"
         android:text="blah blah blah blah blah blah blah blah blah blah blah blah"
         app:layout_constraintEnd_toEndOf="@+id/routeMeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description_title"
-        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+        />
 
     <TextView
         android:id="@+id/eventExistText"
@@ -119,10 +116,10 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:text="Does the event exist?"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_text"
-        app:layout_constraintEnd_toStartOf="@id/checkButton" />
+        app:layout_constraintTop_toBottomOf="@id/description_text"/>
 
     <Button
         android:id="@+id/checkButton"
@@ -131,8 +128,10 @@
         android:backgroundTint="@color/usc_red"
         android:drawableStart="@drawable/checkmark"
         android:drawableTint="@color/white"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
+        android:minWidth="10dp"
+        android:layout_marginTop="10dp"
+        android:minHeight="10dp"
+        android:layout_marginEnd="10dp"
         android:text="3"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/xButton"
@@ -147,13 +146,16 @@
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="3"
+        android:layout_marginTop="10dp"
         android:textColor="@color/white"
+        android:drawableTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description_text" />
 
     <!-- Edit and Delete Buttons aligned horizontally and centered -->
     <LinearLayout
         android:id="@+id/buttonLayout"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -165,24 +167,26 @@
 
         <Button
             android:id="@+id/editButt"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="0dp"
-            android:text="edit"
+            android:text="@string/edit_button_text"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/deleteButt"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="0dp"
-            android:text="delete"
+            android:text="@string/delete_button_text"
             android:textColor="@color/black"
             android:layout_marginStart="16dp" />
     </LinearLayout>

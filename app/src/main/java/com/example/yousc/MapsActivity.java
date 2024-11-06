@@ -10,8 +10,10 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +35,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
@@ -190,7 +195,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         Integer numComments = e.getNumComments();
         viewCommentsButton.setText(String.format(Locale.getDefault(), "View %d Comments", numComments));
 
-
+        Button detailsButton = dialogView.findViewById(R.id.detailsButton);
 
         ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
         Button routeMeButton = dialogView.findViewById(R.id.routeMeButton);
@@ -205,6 +210,49 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             // Handle the button click (e.g., navigate to comments activity)
             startActivity(new Intent(this, CommentsActivity.class));
             dialog.dismiss(); // Dismiss the dialog after the button is clicked
+        });
+
+        detailsButton.setOnClickListener(v -> {
+            // Open the event description dialog on top of the event details dialog
+            View eventDescriptionView = getLayoutInflater().inflate(R.layout.event_description_window, null);
+
+            // Initialize the event description dialog layout
+            ImageButton closeDescButton = eventDescriptionView.findViewById(R.id.closeDescButton);
+
+            TextView titleView2 = eventDescriptionView.findViewById(R.id.eventTitle);
+            titleView2.setText(e.getName()); // Set the title to the marker's title
+
+            TextView dateView2 = eventDescriptionView.findViewById(R.id.date);
+            String dateTime2 = e.getDate() + " " + e.getTime();
+            dateView2.setText(dateTime2);
+
+            Button checkButton2 = eventDescriptionView.findViewById(R.id.checkButton);
+            checkButton2.setText(e.getUpvotes().toString());
+
+            Button xButton2 = eventDescriptionView.findViewById(R.id.xButton);
+            xButton2.setText(e.getDownvotes().toString());
+
+            TextView addressView2 = eventDescriptionView.findViewById(R.id.address);
+            addressView2.setText(e.getLocation());
+
+            Button routeMeButton2 = eventDescriptionView.findViewById(R.id.routeMeButton);
+
+            TextView description = eventDescriptionView.findViewById(R.id.description_text);
+            description.setText(e.getDetails());
+
+            // Create the event description dialog
+            AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
+                    .setView(eventDescriptionView)
+                    .create();
+
+            Objects.requireNonNull(eventDescriptionDialog.getWindow()).setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
+
+            // Set up the close button for the event description dialog
+            closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
+
+            // Show the event description dialog
+            eventDescriptionDialog.show();
         });
 
         // Change marker back to red when the dialog is closed
