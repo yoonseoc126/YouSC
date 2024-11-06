@@ -49,7 +49,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventName"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -60,7 +60,10 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:hint="Enter Event Name"
             android:inputType="textEmailAddress" />
 
@@ -82,7 +85,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/location"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -93,7 +96,10 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:hint="Enter Location"
             android:inputType="textEmailAddress" />
 
@@ -116,7 +122,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventDate"
         android:layout_width="170dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -126,7 +132,10 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:hint="Enter Date.."
             android:inputType="textEmailAddress" />
 
@@ -147,7 +156,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventTime"
         android:layout_width="170dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -158,7 +167,10 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:hint="hh:mm"
             android:inputType="textEmailAddress" />
 
@@ -180,7 +192,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Details"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -191,7 +203,10 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:inputType="textEmailAddress"
             android:hint="Enter Event Details"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -209,8 +224,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Details"
         />
-
-
 
     <Button
         android:id="@id/goBackButt"

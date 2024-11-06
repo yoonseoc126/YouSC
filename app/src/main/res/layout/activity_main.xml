@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/createAccountButt"
@@ -67,9 +67,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,11 +81,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pass"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        app:passwordToggleEnabled="true"
+        app:passwordToggleEnablskdjkled="true"
         app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +93,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Password"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:textSize="18sp"
             android:background="@color/white"
             android:inputType="textPassword"
             />

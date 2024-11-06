@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Add New Event"
+        android:text="Edit Event"
         android:textSize="36sp"
         android:textColor="#a72828"
         android:textStyle="bold"
@@ -97,10 +97,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Location"
             android:textSize="16sp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
+            android:hint="Enter Location"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -168,10 +168,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hh:mm"
             android:textSize="16sp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
+            android:hint="hh:mm"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -204,12 +204,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Details"
+            android:inputType="textEmailAddress"
             android:textSize="16sp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:inputType="textEmailAddress" />
-
+            android:hint="Enter Details"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:id="@+id/DetailsSubtext"
@@ -220,28 +219,34 @@
         android:text="Max 150 Characters"
         android:textSize="15dp"
         android:layout_marginTop="10dp"
+        android:paddingBottom="30dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Details"
         />
-    
+
+
+
     <Button
-        android:id="@+id/createEventButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Create Event"
-        android:gravity="center"
-        android:backgroundTint="#a72828"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/DetailsSubtext"
+        android:id="@id/goBackButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back"
+        android:textColor="@color/dark_gray"
+        android:backgroundTint="@color/light_gray"
+        app:layout_constraintTop_toBottomOf="@id/DetailsSubtext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updateButt"
         />
 
-
-
-
-
-
+    <Button
+        android:id="@id/updateButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:backgroundTint="@color/usc_red"
+        app:layout_constraintTop_toBottomOf="@id/DetailsSubtext"
+        app:layout_constraintStart_toEndOf="@id/goBackButt"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
