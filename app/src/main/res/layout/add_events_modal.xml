@@ -99,12 +99,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
-        android:id="@+id/TimeText"
-        android:layout_width="match_parent"
+        android:id="@+id/DateText"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_marginLeft="20dp"
-        android:text="Time"
+        android:layout_marginRight="20dp"
+        android:text="Date"
         android:textSize="15dp"
         android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.5"
@@ -113,15 +114,46 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/eventDate"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateText"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Date.."
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/TimeText"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Time"
+        android:textSize="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/DateText"
+        app:layout_constraintTop_toBottomOf="@+id/location"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventTime"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="48dp"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/eventDate"
         app:layout_constraintTop_toBottomOf="@+id/TimeText"
         >
         <com.google.android.material.textfield.TextInputEditText

@@ -174,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         //TODO: combine date and time into one string
         TextView dateView = dialogView.findViewById(R.id.date);
-        String dateTime = e.getTime();
+        String dateTime = e.getDate() + " " + e.getTime();
         dateView.setText(dateTime);
 
         Button checkButton = dialogView.findViewById(R.id.checkButton);
@@ -186,9 +186,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         TextView addressView = dialogView.findViewById(R.id.address);
         addressView.setText(e.getLocation());
 
-
-
         Button viewCommentsButton = dialogView.findViewById(R.id.viewCommentsButton);
+        Integer numComments = e.getNumComments();
+        viewCommentsButton.setText(numComments.toString());
+
+
+
         ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
         Button routeMeButton = dialogView.findViewById(R.id.routeMeButton);
 

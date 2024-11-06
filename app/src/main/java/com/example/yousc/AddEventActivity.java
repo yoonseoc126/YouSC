@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    TextInputEditText editEvent, editTime, editLocation, editDetails;
+    TextInputEditText editEvent, editTime, editLocation, editDetails, editDate;
     Button createEvent;
     ImageButton eventClose;
     private FirebaseAuth mAuth;
@@ -35,7 +35,7 @@ public class AddEventActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.add_events_modal);
 
-        String event, time, location, details;
+        String event, time, location, details, date;
 
         TextInputLayout eventLayout = findViewById(R.id.eventName);
         editEvent = (TextInputEditText) eventLayout.getEditText();
@@ -44,6 +44,10 @@ public class AddEventActivity extends AppCompatActivity {
         TextInputLayout locationLayout = findViewById(R.id.location);
         editLocation = (TextInputEditText) locationLayout.getEditText();
         location = String.valueOf(editLocation.getText());
+
+        TextInputLayout dateLayout = findViewById(R.id.eventDate);
+        editDate = (TextInputEditText) dateLayout.getEditText();
+        date = String.valueOf(editDate.getText());
 
         TextInputLayout timeLayout = findViewById(R.id.eventTime);
         editTime = (TextInputEditText) timeLayout.getEditText();
@@ -64,10 +68,11 @@ public class AddEventActivity extends AppCompatActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String event, time, location, details;
+                String event, time, location, details, date;
 
                 event = String.valueOf(editEvent.getText());
                 location = String.valueOf(editLocation.getText());
+                date = String.valueOf(editDate.getText());
                 time = String.valueOf(editTime.getText());
                 details = String.valueOf(editDetails.getText());
 
@@ -78,7 +83,7 @@ public class AddEventActivity extends AppCompatActivity {
                 //TODO: check if location and time are valid - use google maps location validation api for this
                 //TODO: check if event already exists in the db
                 //TODO: find way to keep track of eventID
-                Event newEvent = new Event(event, location, time, details, 0, 0);
+                Event newEvent = new Event(event, location, date, time, details, 0, 0);
                 mDatabase.child("events").push().setValue(newEvent);
             }
         });
