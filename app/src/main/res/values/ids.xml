@@ -7,4 +7,5 @@
     <item name="buttonLayout" type="id" />
     <item name="createButt" type="id" />
     <item name="goBackButt" type="id" />
+    <item name="updateButt" type="id" />
 </resources>

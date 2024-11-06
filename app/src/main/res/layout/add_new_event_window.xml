@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:text="Add New Event"
-        android:textSize="32dp"
+        android:textSize="38dp"
         android:textColor="@color/usc_red"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
         android:text="date"
         app:layout_constraintTop_toBottomOf="@id/eventLoc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/eventTime"
         android:layout_marginBottom="16dp"/>
 
     <EditText
@@ -80,7 +80,7 @@
         android:backgroundTint="@color/light_gray"
         app:layout_constraintTop_toBottomOf="@id/eventDetails"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/createButt"
+        app:layout_constraintEnd_toStartOf="@id/createButt"
         />
 
     <Button
