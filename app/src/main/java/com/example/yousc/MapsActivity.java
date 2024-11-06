@@ -107,7 +107,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         viewCommentsButton.setOnClickListener(v -> {
             // Handle the button click (e.g., navigate to comments activity)
             startActivity(new Intent(this, CommentsActivity.class));
-            dialog.dismiss(); // Dismiss the dialog after the button is clicked
         });
 
         // Change marker back to red when the dialog is closed
