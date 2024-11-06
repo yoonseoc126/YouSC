@@ -35,8 +35,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
@@ -45,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private Button addEventButton;
     private List<Event> eventList;
     private Geocoder geocoder;
+    private Map<String, Event> eventToPinMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         Intent mainIntent = getIntent();
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Hashmap  that maps event pin IDs to event models so we can populate with specific information
+        eventToPinMap = new HashMap<>();
+        geocoder = new Geocoder(this, Locale.getDefault());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -68,8 +75,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 finish();
             }
         });
-
-        geocoder = new Geocoder(this, Locale.getDefault());
     }
 
     /**
@@ -109,11 +114,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         Address location = addresses.get(0);
                         LatLng ePos = new LatLng(location.getLatitude(), location.getLongitude());
                         System.out.println("Current event pos: " + ePos.toString());
-                        mMap.addMarker(new MarkerOptions()
+                        Marker m = mMap.addMarker(new MarkerOptions()
                                 .position(ePos)
                                 .title("Marker in " + e.name)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin))
                         );
+                        eventToPinMap.put(m.getId(), e);
+
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -153,6 +160,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
+
+        Event e = eventToPinMap.get(marker.getId());
+
         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_pin));
 
         // Inflate the custom layout
@@ -160,11 +170,25 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         // Get references to the TextViews and buttons
         TextView titleView = dialogView.findViewById(R.id.eventTitle);
-        titleView.setText(marker.getTitle()); // Set the title to the marker's title
+        titleView.setText(e.getName()); // Set the title to the marker's title
+
+        //TODO: combine date and time into one string
+        TextView dateView = dialogView.findViewById(R.id.date);
+        String dateTime = e.getTime();
+        dateView.setText(dateTime);
+
+        Button checkButton = dialogView.findViewById(R.id.checkButton);
+        checkButton.setText(e.getUpvotes().toString());
+
+        Button xButton = dialogView.findViewById(R.id.xButton);
+        xButton.setText(e.getDownvotes().toString());
+
+        TextView addressView = dialogView.findViewById(R.id.address);
+        addressView.setText(e.getLocation());
+
+
 
         Button viewCommentsButton = dialogView.findViewById(R.id.viewCommentsButton);
-        Button checkButton = dialogView.findViewById(R.id.checkButton);
-        Button xButton = dialogView.findViewById(R.id.xButton);
         ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
         Button routeMeButton = dialogView.findViewById(R.id.routeMeButton);
 
