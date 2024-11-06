@@ -1,6 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/eventTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Event Title"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/xButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/eventCloseButton"
+        android:layout_width="14dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/x"
+        android:background="@android:color/transparent"
+        app:tint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Date and "Route Me" Button -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/usc_red"
+        android:text="Oct 31, 2024, 04:00PM"
+        app:layout_constraintEnd_toStartOf="@+id/routeMeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventTitle"
+        app:layout_constraintBottom_toBottomOf="@id/detailsButton"/>
+
+    <!-- ImageView for the SVG icon -->
+    <ImageView
+        android:id="@+id/routeMeIcon"
+        android:layout_width="14dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info"
+        app:layout_constraintTop_toBottomOf="@id/eventTitle"
+        app:layout_constraintEnd_toStartOf="@id/detailsButton"
+        app:layout_constraintBottom_toBottomOf="@id/detailsButton"
+        android:layout_marginEnd="2dp"/>
+
+    <!-- Address and "Details" Button -->
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="123 Event St, City, State"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+
+    <ImageView
+        android:id="@+id/detailsIcon"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/map"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        app:layout_constraintEnd_toStartOf="@id/routeMeButton"
+        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"
+        android:layout_marginEnd="4dp"/>
+
+    <Button
+        android:id="@+id/routeMeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="@string/route_me_button_text"
+        android:textColor="@color/usc_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date" />
+
+    <TextView
+        android:id="@+id/description_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingTop="40dp"
+        android:text="Description"
+        app:layout_constraintEnd_toStartOf="@+id/routeMeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+
+    <TextView
+        android:id="@+id/description_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:paddingTop="100dp"
+        android:text="blah blah blah blah blah blah blah blah blah blah blah blah"
+        app:layout_constraintEnd_toEndOf="@+id/routeMeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_title"
+        app:layout_constraintBottom_toBottomOf="@id/routeMeButton"/>
+
+    <TextView
+        android:id="@+id/eventExistText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Does the event exist?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_text"
+        app:layout_constraintEnd_toStartOf="@id/checkButton" />
+
+    <Button
+        android:id="@+id/checkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/usc_red"
+        android:drawableStart="@drawable/checkmark"
+        android:drawableTint="@color/white"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="3"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/xButton"
+        app:layout_constraintTop_toBottomOf="@id/description_text" />
+
+    <Button
+        android:id="@+id/xButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/usc_red"
+        android:drawableStart="@drawable/x"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="3"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_text" />
+
+    <!-- Edit and Delete Buttons aligned horizontally and centered -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/xButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/editButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="edit"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/deleteButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="delete"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
