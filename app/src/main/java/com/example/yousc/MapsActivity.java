@@ -4,11 +4,13 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // notifies when map is ready for use (calls callback below)
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -51,7 +53,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng tommyTrojan = new LatLng(34.0206, -118.2854);
         mMap.addMarker(new MarkerOptions()
                 .position(tommyTrojan)
@@ -59,7 +60,25 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin))
         );
         mMap.setOnMarkerClickListener(this);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(tommyTrojan));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tommyTrojan, 16));
+
+
+        mMap.setOnMapClickListener(point -> {
+            if(point.latitude < 34.010860 || point.latitude > 34.031064 || point.longitude < -118.300248 || point.longitude > -118.264672){
+                Toast.makeText(MapsActivity.this, "Marker must be inside USC Fryft Zone", Toast.LENGTH_SHORT).show();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tommyTrojan, 16));            }else{
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(new LatLng(point.latitude, point.longitude))
+                        .title("New Marker")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
+                Marker marker = mMap.addMarker(markerOptions);
+                mMap.setOnMarkerClickListener(this);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+
+                // Show the coordinates (for debugging)
+                System.out.println("Latitude: " + point.latitude + ", Longitude: " + point.longitude);
+            }
+        });
     }
 
     @Override
@@ -77,6 +96,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         Button checkButton = dialogView.findViewById(R.id.checkButton);
         Button xButton = dialogView.findViewById(R.id.xButton);
         ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
+        Button routeMeButton = dialogView.findViewById(R.id.routeMeButton);
 
         // Create the AlertDialog
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -95,10 +115,27 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             // Set the marker's icon back to red
             dialog.dismiss(); // Dismiss the dialog on cancel
         });
+
         // Change marker back to red when the dialog is dismissed
         dialog.setOnDismissListener(dialogInterface -> {
             // Set the marker's icon back to red
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
+        });
+
+
+        routeMeButton.setOnClickListener(v -> {
+            // Use the marker's position for routing
+            LatLng markerPosition = marker.getPosition();
+            String uri = "http://maps.google.com/maps?daddr=" + markerPosition.latitude + "," + markerPosition.longitude;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+
+            // Check if there's an app that can handle the intent
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(MapsActivity.this, "No application found to open maps", Toast.LENGTH_SHORT).show();
+            }
         });
 
         dialog.show(); // Show the dialog
