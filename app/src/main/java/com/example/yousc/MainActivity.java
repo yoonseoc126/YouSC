@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         signUp = findViewById(R.id.createAccountButt);
         forgotPass = findViewById(R.id.forgotPass);
 
+
         //create references to database and authentication instances
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();

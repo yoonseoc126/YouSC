@@ -8,4 +8,7 @@
     <item name="createButt" type="id" />
     <item name="goBackButt" type="id" />
     <item name="updateButt" type="id" />
+    <item name="upvoteCount" type="id" />
+    <item name="downvoteCount" type="id" />
+    <item name="closeDescButton" type="id" />
 </resources>

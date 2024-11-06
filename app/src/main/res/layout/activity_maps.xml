@@ -24,7 +24,7 @@
             android:textStyle="bold"
             android:fontFamily="@font/inter"
             android:textColor="#990101"
-            android:textSize="22sp" />
+            android:textSize="24sp" />
     </RelativeLayout>
 
     <fragment
