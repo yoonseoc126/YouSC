@@ -188,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         Button viewCommentsButton = dialogView.findViewById(R.id.viewCommentsButton);
         Integer numComments = e.getNumComments();
-        viewCommentsButton.setText(numComments.toString());
+        viewCommentsButton.setText(String.format(Locale.getDefault(), "View %d Comments", numComments));
 
 
 
