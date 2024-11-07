@@ -27,6 +27,9 @@
             android:name=".CommentsActivity"
             android:exported="false" />
         <activity
+            android:name=".EditEventActivity"
+            android:exported="true" />
+        <activity
             android:name=".createAccount"
             android:exported="true">
             <intent-filter>
