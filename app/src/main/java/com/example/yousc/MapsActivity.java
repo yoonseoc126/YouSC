@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -29,6 +30,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.yousc.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private Geocoder geocoder;
     private Map<String, Event> eventToPinMap;
     private Map<Event, String> eventToEventId;
+    private NavigationBarView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,23 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 Intent intent = new Intent(MapsActivity.this, AddEventActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               if (item.getItemId() == R.id.discover) {
+                   return true;
+               }
+               else {
+                   Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                   startActivity(intent);
+                   finish();
+
+               }
+                return true;
             }
         });
     }
