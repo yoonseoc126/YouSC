@@ -85,6 +85,9 @@ public class AddEventActivity extends AppCompatActivity {
                 //TODO: find way to keep track of eventID
                 Event newEvent = new Event(event, location, date, time, details, 0, 0);
                 mDatabase.child("events").push().setValue(newEvent);
+                Intent intent = new Intent(AddEventActivity.this, MapsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         eventClose.setOnClickListener(new View.OnClickListener() {

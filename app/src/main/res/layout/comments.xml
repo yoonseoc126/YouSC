@@ -26,7 +26,7 @@
         android:id="@+id/commentsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Comments (56)"
+        android:text="Comments"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginStart="8dp"
@@ -50,8 +50,10 @@
         android:gravity="left"
         android:layout_height="48dp"
         android:background="@color/white"
+        android:paddingHorizontal="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/commentsMain"
         >
 
         <com.google.android.material.textfield.TextInputEditText

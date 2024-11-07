@@ -12,9 +12,11 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
     private final List<Comment> commentList;
+    private String userEmail;
 
-    public CommentAdapter(List<Comment> commentList) {
+    public CommentAdapter(List<Comment> commentList, String userEmail) {
         this.commentList = commentList;
+        this.userEmail = userEmail;
     }
 
     @NonNull
@@ -27,7 +29,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.username.setText(comment.getUsername());
+        holder.username.setText(userEmail);
         holder.time.setText(comment.getTime());
         holder.text.setText(comment.getText());
     }

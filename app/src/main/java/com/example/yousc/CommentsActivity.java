@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -44,6 +45,10 @@ public class CommentsActivity extends AppCompatActivity {
     private TextInputEditText editComment;
     private ImageView commentSubmission;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private String userEmail;
+    private TextView numCommentsHeaderView;
+    private String numCommentsHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,8 @@ public class CommentsActivity extends AppCompatActivity {
             return insets;
         });
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userEmail = user.getEmail();
         // retrieve the event Id passed in through the intent
         String eventId = getIntent().getStringExtra("eventId");
 
@@ -80,6 +87,12 @@ public class CommentsActivity extends AppCompatActivity {
                     //TODO: fetch comments, but figure out adding comments first
                     Event e = task.getResult().getValue(Event.class);
                     commentsList = e.getComments();
+                    Integer commentsListSize = commentsList.size();
+                    numCommentsHeaderView = findViewById(R.id.commentsTitle);
+                    numCommentsHeaderView.setText("Comments (" + commentsListSize.toString() + ")");
+                    commentAdapter = new CommentAdapter(commentsList, userEmail);
+                    recyclerView.setAdapter(commentAdapter);
+                    System.out.println("SUCCESS GRABBING COMMENTS");
                 }
             }
         });
@@ -88,8 +101,7 @@ public class CommentsActivity extends AppCompatActivity {
 //        commentsList.add(new Comment("Jimmy", "03:00 PM", "Just got your sign up for paint night!"));
 //        commentsList.add(new Comment("Kaitlyn", "04:32 PM", "Just got your sign up for paint night!"));
 
-        commentAdapter = new CommentAdapter(commentsList);
-        recyclerView.setAdapter(commentAdapter);
+
 
         // Reference to the close button (make sure this is in the correct layout)
         ImageButton closeButton = findViewById(R.id.closeCommentsButton);
@@ -102,12 +114,12 @@ public class CommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Initialize comment instance
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                 String commentValue = String.valueOf(editComment.getText());
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
                 String formattedTime = format.format(calendar.getTime());
-                Comment c = new Comment(user.getDisplayName(), "formattedTime", commentValue);
+                Comment c = new Comment(user.getEmail(), formattedTime, commentValue);
 
                 //Retrieve event associated with this event and change the comment list
                 DatabaseReference eventRef = mDatabase.child("events").child(eventId);
@@ -115,10 +127,8 @@ public class CommentsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Event e = dataSnapshot.getValue(Event.class);
-                        // if this is the first comment getting added to the event:
                         e.comments.add(c);
                         eventRef.setValue(e);
-
                     }
 
                     @Override
