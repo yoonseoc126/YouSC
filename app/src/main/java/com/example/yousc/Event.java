@@ -24,6 +24,7 @@ public class Event{
     public List<Comment> comments;
     public boolean userHasUpvoted;
     public boolean userHasDownvoted;
+    private String authorEmail;
 
 
 
@@ -33,7 +34,7 @@ public class Event{
         comments = new ArrayList<>();
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public Event(String name, String location, String date, String time, String details, Integer upvotes, Integer downvotes) {
+    public Event(String name, String location, String date, String time, String details, Integer upvotes, Integer downvotes, String authorEmail) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -43,6 +44,7 @@ public class Event{
         this.downvotes = 0;
         this.userHasUpvoted = false;
         this.userHasDownvoted = false;
+        this.authorEmail = authorEmail;
         comments = new ArrayList<>();
     }
 
@@ -67,6 +69,7 @@ public class Event{
     public Integer getDownvotes() {
         return this.downvotes;
     }
+    public String getAuthorEmail() {return this.authorEmail;}
     public List<Comment> getComments() {
         return comments;
     }
