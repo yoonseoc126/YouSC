@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -122,7 +123,9 @@ public class AddEventActivity extends AppCompatActivity {
                         return;
                     }
                     else {
-                        Event newEvent = new Event(event, location, date, time, details, 0, 0);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        String userEmail = user.getEmail();
+                        Event newEvent = new Event(event, location, date, time, details, 0, 0, userEmail);
 
                         mDatabase.child("events").push().setValue(newEvent);
                         Intent intent = new Intent(AddEventActivity.this, MapsActivity.class);

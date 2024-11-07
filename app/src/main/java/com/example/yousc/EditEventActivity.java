@@ -126,7 +126,7 @@ public class EditEventActivity extends AppCompatActivity {
                         return;
                     }
                     else {
-                        Event updatedEvent = new Event(event, location, date, time, details, 0, 0);
+                        Event updatedEvent = new Event(event, location, date, time, details, 0, 0, "hi");
                         DatabaseReference eventRef = mDatabase.child("events").child(eventId);
                         eventRef.setValue(updatedEvent);
                         finish();

@@ -32,6 +32,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -301,6 +303,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
 
             editButton.setOnClickListener(c -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String userEmail = user.getEmail();
+                String eventAuthor = e.getAuthorEmail();
+                if (!Objects.equals(userEmail, eventAuthor)) {
+                    Toast.makeText(MapsActivity.this, "Only the author may edit the event.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(this, EditEventActivity.class);
                 intent.putExtra("ID", (String) marker.getTag());
                 intent.putExtra("NAME", e.getName());
