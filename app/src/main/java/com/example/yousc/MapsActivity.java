@@ -48,8 +48,6 @@ import java.util.Objects;
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-    private Button addEventButton;
     private List<Event> eventList;
     private List<String> eventIdList;
     private Geocoder geocoder;
@@ -60,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent mainIntent = getIntent();
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        com.example.yousc.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Hashmap  that maps event pin IDs to event models so we can populate with specific information
@@ -73,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        addEventButton = findViewById(R.id.addEventButton);
+        Button addEventButton = findViewById(R.id.addEventButton);
 
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,6 +252,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             TextView description = eventDescriptionView.findViewById(R.id.description_text);
             description.setText(e.getDetails());
 
+            Button editButton = eventDescriptionView.findViewById(R.id.editButt);
+
             // Create the event description dialog
             AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
                     .setView(eventDescriptionView)
@@ -264,6 +264,19 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
             // Set up the close button for the event description dialog
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
+
+            editButton.setOnClickListener(c -> {
+                Intent intent = new Intent(this, EditEventActivity.class);
+                intent.putExtra("ID", (String) marker.getTag());
+                intent.putExtra("NAME", e.getName());
+                intent.putExtra("DATE", e.getDate());
+                intent.putExtra("TIME", e.getTime());
+                intent.putExtra("LOCATION", e.getLocation());
+                intent.putExtra("DETAILS", e.getDetails());
+                startActivity(intent);
+                dialog.dismiss();
+                eventDescriptionDialog.dismiss();
+            });
 
             // Show the event description dialog
             eventDescriptionDialog.show();
