@@ -1,6 +1,7 @@
 package com.example.yousc;
 import android.os.Bundle;
 import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
@@ -88,7 +89,7 @@ public class Event{
                 userHasDownvoted = false;
             }
             upvotes++;
-            userHasUpvoted = false;
+            userHasUpvoted = true;
         }
         else{
             upvotes--;

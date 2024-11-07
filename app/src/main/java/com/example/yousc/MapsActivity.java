@@ -159,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
                 // iterate through the list of events we retrieved and add markers for each one
                 // also grab
+                googleMap.clear();
                 for (Event e : eventList) {
                     String latitude, longitude;
                     try {
@@ -265,6 +266,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             dialog.dismiss(); // Dismiss the dialog after the button is clicked
         });
 
+        xButton.setOnClickListener(v -> {
+            e.downvote();
+            Log.d("Upvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+            checkButton.setText(String.valueOf(e.getUpvotes()));
+            xButton.setText(String.valueOf(e.getDownvotes()));
+            updateVoteCountsInFirebase(e);
+        });
+
+        checkButton.setOnClickListener(v -> {
+            e.upvote();
+            Log.d("Upvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+            checkButton.setText(String.valueOf(e.getUpvotes()));
+            xButton.setText(String.valueOf(e.getDownvotes()));
+            updateVoteCountsInFirebase(e);
+        });
+
         detailsButton.setOnClickListener(v -> {
             // Open the event description dialog on top of the event details dialog
             View eventDescriptionView = getLayoutInflater().inflate(R.layout.event_description_window, null);
@@ -279,11 +296,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             String dateTime2 = e.getDate() + " " + e.getTime();
             dateView2.setText(dateTime2);
 
-            Button checkButton2 = eventDescriptionView.findViewById(R.id.checkButton);
-            checkButton2.setText(e.getUpvotes().toString());
-
-            Button xButton2 = eventDescriptionView.findViewById(R.id.xButton);
-            xButton2.setText(e.getDownvotes().toString());
 
             TextView addressView2 = eventDescriptionView.findViewById(R.id.address);
             addressView2.setText(e.getLocation());
@@ -377,7 +389,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 startActivity(intent);
                 dialog.dismiss();
                 eventDescriptionDialog.dismiss();
-                reloadMap();
             });
 
             // Show the event description dialog
@@ -388,10 +399,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         closeButton.setOnClickListener(v -> {
             // Set the marker's icon back to red
             dialog.dismiss(); // Dismiss the dialog on cancel
-        });
-        // Change marker back to red when the dialog is dismissed
-        dialog.setOnDismissListener(dialogInterface -> {
-            // Set the marker's icon back to red
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
         });
 
@@ -413,6 +420,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         dialog.show(); // Show the dialog
 
         return true; // Return true to indicate we have handled the click
+    }
+
+    private void updateVoteCountsInFirebase(Event e)
+    {
+        String eventId = eventToEventId.get(e);
+        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference()
+                .child("events")  // Assuming you have a collection of events in Firebase
+                .child(eventId); // The unique ID of the event
+        // Update the upvotes and downvotes in Firebase
+        eventRef.child("upvotes").setValue(e.getUpvotes());
+        eventRef.child("downvotes").setValue(e.getDownvotes());
     }
 
     private void reloadMap() {
@@ -442,7 +460,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         Log.e("error parsing event", "error parsing date for event" + eventId);
                     }
                 }
-
                 // Re-add the markers for the updated events
                 for (Event e : eventList) {
                     String latitude, longitude;
