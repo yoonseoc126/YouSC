@@ -32,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ForgotPassword extends AppCompatActivity {
 
     TextInputEditText editEmail, editPass;
-    Button signIn, signUp, forgotPass, sendResetEmail;
+    Button signIn, signUp, forgotPass, sendResetEmail, goBack;
     private FirebaseAuth mAuth;
 
     @Override
@@ -46,7 +46,7 @@ public class ForgotPassword extends AppCompatActivity {
         editEmail = (TextInputEditText) emailLayout.getEditText();
         email = String.valueOf(editEmail.getText());
         sendResetEmail = findViewById(R.id.send_email_button);
-
+        goBack = findViewById(R.id.go_back_button);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 //        DatabaseReference myRef = database.getReference("message");
@@ -62,7 +62,6 @@ public class ForgotPassword extends AppCompatActivity {
                     Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //TODO: add error check for when email is not associated with user password
                 mAuth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -81,6 +80,15 @@ public class ForgotPassword extends AppCompatActivity {
                             }
                         });
             }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  Intent intent = new Intent(ForgotPassword.this, MainActivity.class);
+                  startActivity(intent);
+                  finish();
+              }
         });
 
 
