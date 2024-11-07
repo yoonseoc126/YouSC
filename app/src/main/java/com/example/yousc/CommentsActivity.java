@@ -129,6 +129,13 @@ public class CommentsActivity extends AppCompatActivity {
                         Event e = dataSnapshot.getValue(Event.class);
                         e.comments.add(c);
                         eventRef.setValue(e);
+
+                        commentsList.add(c);  // Add the new comment to the list
+                        numCommentsHeaderView = findViewById(R.id.commentsTitle);
+                        Integer size = commentsList.size();
+                        numCommentsHeaderView.setText("Comments (" + size.toString() + ")");
+                        commentAdapter.notifyItemInserted(commentsList.size() - 1);  // Notify adapter of new item
+                        editComment.setText("");
                     }
 
                     @Override
