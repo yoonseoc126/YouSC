@@ -269,6 +269,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             addressView2.setText(e.getLocation());
 
             Button routeMeButton2 = eventDescriptionView.findViewById(R.id.routeMeButton);
+            routeMeButton2.setOnClickListener(c -> {
+                // Use the marker's position for routing
+                LatLng markerPosition = marker.getPosition();
+                String uri = "http://maps.google.com/maps?daddr=" + markerPosition.latitude + "," + markerPosition.longitude;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+
+                // Check if there's an app that can handle the intent
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MapsActivity.this, "No application found to open maps", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             TextView description = eventDescriptionView.findViewById(R.id.description_text);
             description.setText(e.getDetails());
