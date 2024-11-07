@@ -3,6 +3,8 @@ package com.example.yousc;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +17,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,12 +30,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class AddEventActivity extends AppCompatActivity {
 
     TextInputEditText editEvent, editTime, editLocation, editDetails, editDate;
     Button createEvent;
     ImageButton eventClose;
     private FirebaseAuth mAuth;
+    private Geocoder geocoder;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +73,8 @@ public class AddEventActivity extends AppCompatActivity {
         createEvent = findViewById(R.id.createEventButton);
         eventClose = findViewById(R.id.eventCloseButton);
 
+        geocoder = new Geocoder(this, Locale.getDefault());
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -80,14 +95,51 @@ public class AddEventActivity extends AppCompatActivity {
                     Toast.makeText(AddEventActivity.this, "Please fill out all required forms", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if (date.charAt(2) != '/' || date.charAt(5) != '/' || date.length() != 10) {
+                    Toast.makeText(AddEventActivity.this, "Date must be formatted in mm/dd/yyyy", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (time.charAt(2) != ':' ||time.length() != 5) {
+                    Toast.makeText(AddEventActivity.this, "Time must be formatted in hh:mm", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocationName(location, 1);
+                    System.out.println(addresses.size());
+                    if (addresses.size() == 0) {
+                        Toast.makeText(AddEventActivity.this, "Please enter a valid location.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Address locationObject = addresses.get(0);
+
+                    Double latitude = locationObject.getLatitude();
+                    Double longitude = locationObject.getLongitude();
+                    if(latitude < 34.010860 || latitude > 34.031064 || longitude < -118.300248 || longitude > -118.264672){
+                        Toast.makeText(AddEventActivity.this, "Event must be within USC Fryft zone", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else {
+                        Event newEvent = new Event(event, location, date, time, details, 0, 0);
+
+                        mDatabase.child("events").push().setValue(newEvent);
+                        Intent intent = new Intent(AddEventActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+
+
                 //TODO: check if location and time are valid - use google maps location validation api for this
                 //TODO: check if event already exists in the db
                 //TODO: find way to keep track of eventID
-                Event newEvent = new Event(event, location, date, time, details, 0, 0);
-                mDatabase.child("events").push().setValue(newEvent);
-                Intent intent = new Intent(AddEventActivity.this, MapsActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
         eventClose.setOnClickListener(new View.OnClickListener() {
