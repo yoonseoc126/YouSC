@@ -51,8 +51,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private ActivityMapsBinding binding;
     private Button addEventButton;
     private List<Event> eventList;
+    private List<String> eventIdList;
     private Geocoder geocoder;
     private Map<String, Event> eventToPinMap;
+    private Map<Event, String> eventToEventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         // Hashmap  that maps event pin IDs to event models so we can populate with specific information
         eventToPinMap = new HashMap<>();
+        eventToEventId = new HashMap<>();
         geocoder = new Geocoder(this, Locale.getDefault());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -105,13 +108,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
+                // add event ID's and actual event Objects to list so we can iterate through them
+                // later
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
-                    System.out.println("Printing event: " + event.name);
+                    System.out.println("Printing event: " + eventId);
                     eventList.add(event);
+                    eventToEventId.put(event, eventId);
                 }
 
-                // Iterate through the list of events we retrieved and add markers for each one
+                // iterate through the list of events we retrieved and add markers for each one
+                // also grab
                 for (Event e : eventList) {
                     String latitude, longitude;
                     try {
@@ -124,6 +132,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                                 .title("Marker in " + e.name)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin))
                         );
+                        String eventId = eventToEventId.get(e);
+                        m.setTag(eventId);
                         eventToPinMap.put(m.getId(), e);
 
                     } catch (IOException ex) {
@@ -208,7 +218,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         // Set up the button click listeners
         viewCommentsButton.setOnClickListener(v -> {
             // Handle the button click (e.g., navigate to comments activity)
-            startActivity(new Intent(this, CommentsActivity.class));
+            // Pass in the event id through the intent
+            String eventId = (String) marker.getTag();
+            Intent i = new Intent(this, CommentsActivity.class);
+            i.putExtra("eventId", eventId);
+            startActivity(i);
             dialog.dismiss(); // Dismiss the dialog after the button is clicked
         });
 
