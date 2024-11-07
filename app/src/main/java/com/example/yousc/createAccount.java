@@ -53,9 +53,6 @@ public class createAccount extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, World!");
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,33 +89,18 @@ public class createAccount extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    //redirect to sign in page
                                     Intent intent = new Intent(createAccount.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-//                                  updateUI(user);
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(getApplicationContext(),  "Registration failed.",
                                             Toast.LENGTH_SHORT).show();
-//                                    updateUI(null);
                                 }
                             }
                         });
-
-                //if not, add to DB and redirect to sign in page
-
-//                User user = new User(email, pass);
-//                myRef.child(userPK.toString()).setValue(user);
-//                userPK+=1;
-//                Intent intent = new Intent(createAccount.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-
             }
         });
 

@@ -109,15 +109,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         });
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -145,8 +136,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     System.out.println("Printing date: " + eventDateTime);
                     try {
                         Date eventDate = dateFormat.parse(eventDateTime);
-
-                        // Only add event if the event date-time is after the current date-time
                         if (eventDate.after(currentDate)) {
                             eventList.add(event);
                             eventToEventId.put(event, eventId);
@@ -187,11 +176,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         });
 
         LatLng tommyTrojan = new LatLng(34.0206, -118.2854);
-//        mMap.addMarker(new MarkerOptions()
-//                .position(tommyTrojan)
-//                .title("Marker in Tommy Trojan")
-//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin))
-//        );
+
         mMap.setOnMarkerClickListener(this);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(tommyTrojan));
         mMap.setOnMapClickListener(point -> {
@@ -206,7 +191,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 mMap.setOnMarkerClickListener(this);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
 
-                // Show the coordinates (for debugging)
                 System.out.println("Latitude: " + point.latitude + ", Longitude: " + point.longitude);
             }
         });
@@ -219,14 +203,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_pin));
 
-        // Inflate the custom layout
         View dialogView = getLayoutInflater().inflate(R.layout.events_details_window, null);
 
-        // Get references to the TextViews and buttons
         TextView titleView = dialogView.findViewById(R.id.eventTitle);
-        titleView.setText(e.getName()); // Set the title to the marker's title
+        titleView.setText(e.getName());
 
-        //TODO: combine date and time into one string
         TextView dateView = dialogView.findViewById(R.id.date);
         String dateTime = e.getDate() + " " + e.getTime();
         dateView.setText(dateTime);
@@ -249,27 +230,36 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         ImageButton closeButton = dialogView.findViewById(R.id.eventCloseButton);
         Button routeMeButton = dialogView.findViewById(R.id.routeMeButton);
 
-        // Create the AlertDialog
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView) // Set the custom layout
                 .create();
 
-        // Set up the button click listeners
         viewCommentsButton.setOnClickListener(v -> {
-            // Handle the button click (e.g., navigate to comments activity)
-            // Pass in the event id through the intent
             String eventId = (String) marker.getTag();
             Intent i = new Intent(this, CommentsActivity.class);
             i.putExtra("eventId", eventId);
             startActivity(i);
-            dialog.dismiss(); // Dismiss the dialog after the button is clicked
+            dialog.dismiss();
+        });
+
+        xButton.setOnClickListener(v -> {
+            e.downvote();
+            Log.d("Upvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+            checkButton.setText(String.valueOf(e.getUpvotes()));
+            xButton.setText(String.valueOf(e.getDownvotes()));
+            updateVoteCountsInFirebase(e);
+        });
+
+        checkButton.setOnClickListener(v -> {
+            e.upvote();
+            Log.d("Upvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+            checkButton.setText(String.valueOf(e.getUpvotes()));
+            xButton.setText(String.valueOf(e.getDownvotes()));
+            updateVoteCountsInFirebase(e);
         });
 
         detailsButton.setOnClickListener(v -> {
-            // Open the event description dialog on top of the event details dialog
             View eventDescriptionView = getLayoutInflater().inflate(R.layout.event_description_window, null);
-
-            // Initialize the event description dialog layout
             ImageButton closeDescButton = eventDescriptionView.findViewById(R.id.closeDescButton);
 
             TextView titleView2 = eventDescriptionView.findViewById(R.id.eventTitle);
@@ -279,24 +269,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             String dateTime2 = e.getDate() + " " + e.getTime();
             dateView2.setText(dateTime2);
 
-            Button checkButton2 = eventDescriptionView.findViewById(R.id.checkButton);
-            checkButton2.setText(e.getUpvotes().toString());
-
-            Button xButton2 = eventDescriptionView.findViewById(R.id.xButton);
-            xButton2.setText(e.getDownvotes().toString());
-
             TextView addressView2 = eventDescriptionView.findViewById(R.id.address);
             addressView2.setText(e.getLocation());
 
             Button routeMeButton2 = eventDescriptionView.findViewById(R.id.routeMeButton);
             routeMeButton2.setOnClickListener(c -> {
-                // Use the marker's position for routing
                 LatLng markerPosition = marker.getPosition();
                 String uri = "http://maps.google.com/maps?daddr=" + markerPosition.latitude + "," + markerPosition.longitude;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 intent.setPackage("com.google.android.apps.maps");
 
-                // Check if there's an app that can handle the intent
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 } else {
@@ -310,15 +292,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             Button editButton = eventDescriptionView.findViewById(R.id.editButt);
             Button deleteButton = eventDescriptionView.findViewById(R.id.deleteButt);
 
-            // Create the event description dialog
             AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
                     .setView(eventDescriptionView)
                     .create();
 
             Objects.requireNonNull(eventDescriptionDialog.getWindow()).setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
-
-            // Set up the close button for the event description dialog
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
 
             deleteButton.setOnClickListener(c -> {
@@ -329,7 +308,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     Toast.makeText(MapsActivity.this, "Only the author may delete the event.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Delete")
                         .setMessage("Are you sure you want to delete this event?")
@@ -350,11 +328,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                                     });
                         })
                         .setNegativeButton("No", (window, which) -> {
-                            // Dismiss the dialog if "No" is selected
                             window.dismiss();
                         });
-
-                // Show the dialog
                 AlertDialog alert = builder.create();
                 alert.show();
             });
@@ -377,32 +352,24 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 startActivity(intent);
                 dialog.dismiss();
                 eventDescriptionDialog.dismiss();
-                reloadMap();
             });
 
-            // Show the event description dialog
             eventDescriptionDialog.show();
         });
 
-        // Change marker back to red when the dialog is closed
         closeButton.setOnClickListener(v -> {
-            // Set the marker's icon back to red
-            dialog.dismiss(); // Dismiss the dialog on cancel
+            dialog.dismiss();
         });
-        // Change marker back to red when the dialog is dismissed
         dialog.setOnDismissListener(dialogInterface -> {
-            // Set the marker's icon back to red
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
         });
 
         routeMeButton.setOnClickListener(v -> {
-            // Use the marker's position for routing
             LatLng markerPosition = marker.getPosition();
             String uri = "http://maps.google.com/maps?daddr=" + markerPosition.latitude + "," + markerPosition.longitude;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             intent.setPackage("com.google.android.apps.maps");
 
-            // Check if there's an app that can handle the intent
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             } else {
@@ -410,9 +377,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             }
         });
 
-        dialog.show(); // Show the dialog
+        dialog.show();
 
-        return true; // Return true to indicate we have handled the click
+        return true;
+    }
+
+    private void updateVoteCountsInFirebase(Event e)
+    {
+        String eventId = eventToEventId.get(e);
+        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference()
+                .child("events")  // Assuming you have a collection of events in Firebase
+                .child(eventId); // The unique ID of the event
+        // Update the upvotes and downvotes in Firebase
+        eventRef.child("upvotes").setValue(e.getUpvotes());
+        eventRef.child("downvotes").setValue(e.getDownvotes());
     }
 
     private void reloadMap() {
@@ -425,7 +403,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
-                // add event ID's and actual event Objects to list
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
@@ -443,7 +420,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     }
                 }
 
-                // Re-add the markers for the updated events
                 for (Event e : eventList) {
                     String latitude, longitude;
                     try {

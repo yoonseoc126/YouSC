@@ -32,7 +32,6 @@ public class Event{
         this.upvotes = 0;
         this.downvotes = 0;
         comments = new ArrayList<>();
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
     public Event(String name, String location, String date, String time, String details, Integer upvotes, Integer downvotes, String authorEmail) {
         this.name = name;

@@ -63,18 +63,14 @@ public class CommentsActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         userEmail = user.getEmail();
-        // retrieve the event Id passed in through the intent
         String eventId = getIntent().getStringExtra("eventId");
 
-        // initializing recycler view (for comments)
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // retrieve user's comment
         TextInputLayout commentLayout = findViewById(R.id.commentTextInput);
         editComment = (TextInputEditText) commentLayout.getEditText();
 
-        // retrieve from database a list of comments associated to the event
         commentsList = new ArrayList<>();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("events").child(eventId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -97,13 +93,6 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
 
-
-//        commentsList.add(new Comment("Jimmy", "03:00 PM", "Just got your sign up for paint night!"));
-//        commentsList.add(new Comment("Kaitlyn", "04:32 PM", "Just got your sign up for paint night!"));
-
-
-
-        // Reference to the close button (make sure this is in the correct layout)
         ImageButton closeButton = findViewById(R.id.closeCommentsButton);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -113,15 +102,12 @@ public class CommentsActivity extends AppCompatActivity {
         commentSubmission.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Initialize comment instance
-
                 String commentValue = String.valueOf(editComment.getText());
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
                 String formattedTime = format.format(calendar.getTime());
                 Comment c = new Comment(user.getEmail(), formattedTime, commentValue);
 
-                //Retrieve event associated with this event and change the comment list
                 DatabaseReference eventRef = mDatabase.child("events").child(eventId);
                 eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -130,11 +116,11 @@ public class CommentsActivity extends AppCompatActivity {
                         e.comments.add(c);
                         eventRef.setValue(e);
 
-                        commentsList.add(c);  // Add the new comment to the list
+                        commentsList.add(c);
                         numCommentsHeaderView = findViewById(R.id.commentsTitle);
                         Integer size = commentsList.size();
                         numCommentsHeaderView.setText("Comments (" + size.toString() + ")");
-                        commentAdapter.notifyItemInserted(commentsList.size() - 1);  // Notify adapter of new item
+                        commentAdapter.notifyItemInserted(commentsList.size() - 1);
                         editComment.setText("");
                     }
 
@@ -146,11 +132,8 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
 
-
-        // Set the close button click listener
         closeButton.setOnClickListener(v -> {
-            // Close the CommentsActivity and return to the MapsActivity
-            finish(); // This will finish the current activity and return to the previous one in the stack
+            finish();
         });
 
 

@@ -99,72 +99,6 @@
         app:layout_constraintEnd_toEndOf="@+id/routeMeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description_title" />
-
-    <TextView
-        android:id="@+id/eventExistText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Does the event exist?"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_text" />
-
-    <Button
-        android:id="@+id/checkButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/usc_red"
-        android:drawableStart="@drawable/checkmark"
-        android:drawableTint="@color/white"
-        android:minWidth="10dp"
-        android:minHeight="10dp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/xButton"
-        app:layout_constraintTop_toBottomOf="@id/description_text" />
-
-    <Button
-        android:id="@+id/xButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/usc_red"
-        android:drawableStart="@drawable/x"
-        android:drawableTint="@color/white"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_text" />
-
-    <TextView
-        android:id="@+id/upvoteCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="2"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/checkButton"
-        app:layout_constraintStart_toStartOf="@id/checkButton"
-        app:layout_constraintTop_toBottomOf="@id/description_text" />
-
-    <TextView
-        android:id="@+id/downvoteCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="-1"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/xButton"
-        app:layout_constraintStart_toStartOf="@id/xButton"
-        app:layout_constraintTop_toBottomOf="@id/description_text" />
     <LinearLayout
         android:id="@+id/buttonLayout"
         style="?android:attr/buttonBarStyle"
@@ -175,7 +109,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/xButton">
+        app:layout_constraintTop_toBottomOf="@id/description_text">
 
         <Button
             android:id="@+id/editButt"

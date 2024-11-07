@@ -135,16 +135,9 @@ public class AddEventActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-
-
-
-                //TODO: check if location and time are valid - use google maps location validation api for this
-                //TODO: check if event already exists in the db
-                //TODO: find way to keep track of eventID
-
             }
         });
+
         eventClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

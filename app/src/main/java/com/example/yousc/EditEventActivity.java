@@ -96,9 +96,6 @@ public class EditEventActivity extends AppCompatActivity {
                     Toast.makeText(EditEventActivity.this, "Please fill out all required forms", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //TODO: check if location and time are valid - use google maps location validation api for this
-                //TODO: check if event already exists in the db
-                //TODO: find way to keep track of eventID
 
                 if (date.charAt(2) != '/' || date.charAt(5) != '/' || date.length() != 10) {
                     Toast.makeText(EditEventActivity.this, "Date must be formatted in mm/dd/yyyy", Toast.LENGTH_SHORT).show();

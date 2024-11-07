@@ -49,7 +49,6 @@ public class ForgotPassword extends AppCompatActivity {
         goBack = findViewById(R.id.go_back_button);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
 
         sendResetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
