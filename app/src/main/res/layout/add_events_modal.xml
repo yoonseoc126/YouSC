@@ -49,7 +49,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventName"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -82,7 +82,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/location"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -116,7 +116,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventDate"
         android:layout_width="170dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -147,7 +147,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/eventTime"
         android:layout_width="170dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
@@ -180,7 +180,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Details"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
