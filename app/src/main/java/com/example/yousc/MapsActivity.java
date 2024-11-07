@@ -139,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     Event event = snapshot.getValue(Event.class);
                     System.out.println("Printing event: " + eventId);
                     // only add event if date time after current date time
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     Date currentDate = new Date();
                     String eventDateTime = event.getDate() + " " + event.getTime();
                     System.out.println("Printing date: " + eventDateTime);
@@ -308,6 +308,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             description.setText(e.getDetails());
 
             Button editButton = eventDescriptionView.findViewById(R.id.editButt);
+            Button deleteButton = eventDescriptionView.findViewById(R.id.deleteButt);
 
             // Create the event description dialog
             AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
@@ -319,6 +320,44 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
             // Set up the close button for the event description dialog
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
+
+            deleteButton.setOnClickListener(c -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String userEmail = user.getEmail();
+                String eventAuthor = e.getAuthorEmail();
+                if (!Objects.equals(userEmail, eventAuthor)) {
+                    Toast.makeText(MapsActivity.this, "Only the author may delete the event.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Delete")
+                        .setMessage("Are you sure you want to delete this event?")
+                        .setPositiveButton("Yes", (window, which) -> {
+                            // delete event
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference ref = mDatabase.child("events").child((String)marker.getTag());
+                            ref.removeValue()
+                                    .addOnSuccessListener(eSuccess -> {
+                                        // remove marker
+                                        marker.remove();
+                                        eventDescriptionDialog.dismiss();
+                                        dialog.dismiss();
+                                        Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(eFail -> {
+                                        Toast.makeText(this, "Failed to delete event", Toast.LENGTH_SHORT).show();
+                                    });
+                        })
+                        .setNegativeButton("No", (window, which) -> {
+                            // Dismiss the dialog if "No" is selected
+                            window.dismiss();
+                        });
+
+                // Show the dialog
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
 
             editButton.setOnClickListener(c -> {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -390,7 +429,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     Date currentDate = new Date();
                     String eventDateTime = event.getDate() + " " + event.getTime();
                     try {
