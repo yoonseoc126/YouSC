@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -83,8 +84,10 @@ public class AddEventActivity extends AppCompatActivity {
                 //TODO: check if location and time are valid - use google maps location validation api for this
                 //TODO: check if event already exists in the db
                 //TODO: find way to keep track of eventID
+
                 Event newEvent = new Event(event, location, date, time, details, 0, 0);
                 mDatabase.child("events").push().setValue(newEvent);
+
             }
         });
         eventClose.setOnClickListener(new View.OnClickListener() {

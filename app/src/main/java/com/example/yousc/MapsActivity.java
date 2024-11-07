@@ -49,12 +49,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
-    private Button addEventButton;
+    private Button addEventButton,upvoteButt, downvoteButt, upvoteButton, downvoteButton;
     private List<Event> eventList;
     private List<String> eventIdList;
     private Geocoder geocoder;
     private Map<String, Event> eventToPinMap;
     private Map<Event, String> eventToEventId;
+    private TextView upvoteCount, downvoteCount, upCount, downCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +86,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         });
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -182,6 +175,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         // Inflate the custom layout
         View dialogView = getLayoutInflater().inflate(R.layout.events_details_window, null);
+        setUpVoteDownVoteButtonsDetail(dialogView,e);
+
+        //here details
+//        upvoteButt = dialogView.findViewById(R.id.checkButton);
+//        downvoteButt = dialogView.findViewById(R.id.xButton);
 
         // Get references to the TextViews and buttons
         TextView titleView = dialogView.findViewById(R.id.eventTitle);
@@ -192,11 +190,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         String dateTime = e.getDate() + " " + e.getTime();
         dateView.setText(dateTime);
 
-        Button checkButton = dialogView.findViewById(R.id.checkButton);
-        checkButton.setText(e.getUpvotes().toString());
-
-        Button xButton = dialogView.findViewById(R.id.xButton);
-        xButton.setText(e.getDownvotes().toString());
+//        Button checkButton = dialogView.findViewById(R.id.checkButton);
+//        checkButton.setText(e.getUpvotes().toString());
+//
+//        Button xButton = dialogView.findViewById(R.id.xButton);
+//        xButton.setText(e.getDownvotes().toString());
 
         TextView addressView = dialogView.findViewById(R.id.address);
         addressView.setText(e.getLocation());
@@ -215,6 +213,62 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 .setView(dialogView) // Set the custom layout
                 .create();
 
+
+//            upvoteButt.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    if (!e.userHasUpvoted) {
+//                        if (e.userHasDownvoted) {
+//                            e.downvotes--;
+//                            e.userHasDownvoted = false;
+//                        }
+//                        e.upvotes++;
+//                        e.userHasUpvoted = true;
+//                    } else {
+//                        e.upvotes--;
+//                        e.userHasUpvoted = false;
+//                    }
+//
+//
+//                    Log.d("Upvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+//                    upvoteButt.setText(String.valueOf(e.getUpvotes()));
+//                    downvoteButt.setText(String.valueOf(e.getDownvotes()));
+//                    updateVoteCountsInFirebase(e);
+//
+//                }
+//            });
+//        //}
+//
+////        if(downvoteButt != null)
+////        {
+//            downvoteButt.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    if (!e.userHasDownvoted) {
+//                        if (e.userHasUpvoted) {
+//                            e.upvotes--;
+//                            e.userHasUpvoted = false;
+//                        }
+//                        e.downvotes++;
+//                        e.userHasDownvoted = true;
+//                    } else {
+//                        e.downvotes--;
+//                        e.userHasDownvoted = false;
+//                    }
+//
+//                    Log.d("Downvote", "Upvotes: " + e.getUpvotes() + " Downvotes: " + e.getDownvotes());
+//                    upvoteButt.setText(String.valueOf(e.getUpvotes()));
+//                    downvoteButt.setText(String.valueOf(e.getDownvotes()));
+//                    updateVoteCountsInFirebase(e);
+//
+//                }
+//            });
+
+
+
+
         // Set up the button click listeners
         viewCommentsButton.setOnClickListener(v -> {
             // Handle the button click (e.g., navigate to comments activity)
@@ -226,9 +280,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             dialog.dismiss(); // Dismiss the dialog after the button is clicked
         });
 
+
+
+
         detailsButton.setOnClickListener(v -> {
             // Open the event description dialog on top of the event details dialog
             View eventDescriptionView = getLayoutInflater().inflate(R.layout.event_description_window, null);
+            //setUpVoteDownVoteButtonsDescrip(eventDescriptionView,e);
+
+
+            upvoteButton = eventDescriptionView.findViewById(R.id.upButt);
+            downvoteButton = eventDescriptionView.findViewById(R.id.downButt);
+
 
             // Initialize the event description dialog layout
             ImageButton closeDescButton = eventDescriptionView.findViewById(R.id.closeDescButton);
@@ -240,19 +303,19 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             String dateTime2 = e.getDate() + " " + e.getTime();
             dateView2.setText(dateTime2);
 
-            Button checkButton2 = eventDescriptionView.findViewById(R.id.checkButton);
-            checkButton2.setText(e.getUpvotes().toString());
-
-            Button xButton2 = eventDescriptionView.findViewById(R.id.xButton);
-            xButton2.setText(e.getDownvotes().toString());
+//            Button checkButton2 = eventDescriptionView.findViewById(R.id.upButt);
+//            checkButton2.setText(e.getUpvotes().toString());
+//
+//            Button xButton2 = eventDescriptionView.findViewById(R.id.downButt);
+//            xButton2.setText(e.getDownvotes().toString());
 
             TextView addressView2 = eventDescriptionView.findViewById(R.id.address);
             addressView2.setText(e.getLocation());
 
             Button routeMeButton2 = eventDescriptionView.findViewById(R.id.routeMeButton);
-
             TextView description = eventDescriptionView.findViewById(R.id.description_text);
             description.setText(e.getDetails());
+
 
             // Create the event description dialog
             AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
@@ -265,9 +328,57 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             // Set up the close button for the event description dialog
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
 
+            upvoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!e.userHasUpvoted) {
+                        if (e.userHasDownvoted) {
+                            e.downvotes--;
+                            e.userHasDownvoted = false;
+                        }
+                        e.upvotes++;
+                        e.userHasUpvoted = true;
+                    } else {
+                        e.upvotes--;
+                        e.userHasUpvoted = false;
+                    }
+
+                    upvoteButton.setText(String.valueOf(e.getUpvotes()));
+                    downvoteButton.setText(String.valueOf(e.getDownvotes()));
+                    updateVoteCountsInFirebase(e);
+
+                }
+            });
+
+            downvoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!e.userHasDownvoted) {
+                        if (e.userHasUpvoted) {
+                            e.upvotes--;
+                            e.userHasUpvoted = false;
+                        }
+                        e.downvotes++;
+                        e.userHasDownvoted = true;
+                    } else {
+                        e.downvotes--;
+                        e.userHasDownvoted = false;
+                    }
+
+                    upvoteButton.setText(String.valueOf(e.getUpvotes()));
+                    downvoteButton.setText(String.valueOf(e.getDownvotes()));
+                    updateVoteCountsInFirebase(e);
+
+                }
+            });
+
             // Show the event description dialog
             eventDescriptionDialog.show();
         });
+
+
 
         // Change marker back to red when the dialog is closed
         closeButton.setOnClickListener(v -> {
@@ -299,5 +410,110 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         return true; // Return true to indicate we have handled the click
     }
+
+    private void updateVoteCountsInFirebase(Event e)
+    {
+        String eventId = eventToEventId.get(e);
+        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference()
+                .child("events")  // Assuming you have a collection of events in Firebase
+                .child(eventId); // The unique ID of the event
+
+        // Update the upvotes and downvotes in Firebase
+        eventRef.child("upvotes").setValue(e.getUpvotes());
+        eventRef.child("downvotes").setValue(e.getDownvotes());
+    }
+
+
+    private void setUpVoteDownVoteButtonsDescrip(View v, Event event) {
+        // Configure buttons for upvote and downvote in both details and description dialogs
+        Button upvoteButt = v.findViewById(R.id.upButt);
+        Button downvoteButt = v.findViewById(R.id.downButt);
+
+        upvoteButt.setText(String.valueOf(event.getUpvotes()));
+        downvoteButt.setText(String.valueOf(event.getDownvotes()));
+
+        upvoteButt.setOnClickListener(view -> {
+            if (!event.userHasUpvoted) {
+                if (event.userHasDownvoted) {
+                    event.downvotes--;
+                    event.userHasDownvoted = false;
+                }
+                event.upvotes++;
+                event.userHasUpvoted = true;
+            } else {
+                event.upvotes--;
+                event.userHasUpvoted = false;
+            }
+            upvoteButt.setText(String.valueOf(event.getUpvotes()));
+            downvoteButt.setText(String.valueOf(event.getDownvotes()));
+            updateVoteCountsInFirebase(event);
+        });
+
+        downvoteButt.setOnClickListener(view -> {
+            if (!event.userHasDownvoted) {
+                if (event.userHasUpvoted) {
+                    event.upvotes--;
+                    event.userHasUpvoted = false;
+                }
+                event.downvotes++;
+                event.userHasDownvoted = true;
+            } else {
+                event.downvotes--;
+                event.userHasDownvoted = false;
+            }
+            upvoteButt.setText(String.valueOf(event.getUpvotes()));
+            downvoteButt.setText(String.valueOf(event.getDownvotes()));
+            updateVoteCountsInFirebase(event);
+        });
+    }
+
+
+
+
+
+
+    private void setUpVoteDownVoteButtonsDetail(View dialogView, Event event) {
+        // Configure buttons for upvote and downvote in both details and description dialogs
+        Button upvoteButt = dialogView.findViewById(R.id.checkButton);
+        Button downvoteButt = dialogView.findViewById(R.id.xButton);
+
+        upvoteButt.setText(String.valueOf(event.getUpvotes()));
+        downvoteButt.setText(String.valueOf(event.getDownvotes()));
+
+        upvoteButt.setOnClickListener(view -> {
+            if (!event.userHasUpvoted) {
+                if (event.userHasDownvoted) {
+                    event.downvotes--;
+                    event.userHasDownvoted = false;
+                }
+                event.upvotes++;
+                event.userHasUpvoted = true;
+            } else {
+                event.upvotes--;
+                event.userHasUpvoted = false;
+            }
+            upvoteButt.setText(String.valueOf(event.getUpvotes()));
+            downvoteButt.setText(String.valueOf(event.getDownvotes()));
+            updateVoteCountsInFirebase(event);
+        });
+
+        downvoteButt.setOnClickListener(view -> {
+            if (!event.userHasDownvoted) {
+                if (event.userHasUpvoted) {
+                    event.upvotes--;
+                    event.userHasUpvoted = false;
+                }
+                event.downvotes++;
+                event.userHasDownvoted = true;
+            } else {
+                event.downvotes--;
+                event.userHasDownvoted = false;
+            }
+            upvoteButt.setText(String.valueOf(event.getUpvotes()));
+            downvoteButt.setText(String.valueOf(event.getDownvotes()));
+            updateVoteCountsInFirebase(event);
+        });
+    }
+
 
 }
