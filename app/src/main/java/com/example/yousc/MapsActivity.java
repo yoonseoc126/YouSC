@@ -41,7 +41,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -133,8 +136,23 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
                     System.out.println("Printing event: " + eventId);
-                    eventList.add(event);
-                    eventToEventId.put(event, eventId);
+                    // only add event if date time after current date time
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date currentDate = new Date();
+                    String eventDateTime = event.getDate() + " " + event.getTime();
+                    System.out.println("Printing date: " + eventDateTime);
+                    try {
+                        Date eventDate = dateFormat.parse(eventDateTime);
+
+                        // Only add event if the event date-time is after the current date-time
+                        if (eventDate.after(currentDate)) {
+                            eventList.add(event);
+                            eventToEventId.put(event, eventId);
+                        }
+                    } catch (ParseException e) {
+                        // error for invalid formats
+                        Log.e("error parsing event", "error parsing date for event" + eventId);
+                    }
                 }
 
                 // iterate through the list of events we retrieved and add markers for each one
@@ -311,6 +329,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 startActivity(intent);
                 dialog.dismiss();
                 eventDescriptionDialog.dismiss();
+                reloadMap();
             });
 
             // Show the event description dialog
@@ -346,6 +365,62 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         dialog.show(); // Show the dialog
 
         return true; // Return true to indicate we have handled the click
+    }
+
+    private void reloadMap() {
+        mMap.clear();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("events");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventList.clear();
+                // add event ID's and actual event Objects to list
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String eventId = snapshot.getKey();
+                    Event event = snapshot.getValue(Event.class);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date currentDate = new Date();
+                    String eventDateTime = event.getDate() + " " + event.getTime();
+                    try {
+                        Date eventDate = dateFormat.parse(eventDateTime);
+                        if (eventDate.after(currentDate)) {
+                            eventList.add(event);
+                            eventToEventId.put(event, eventId);
+                        }
+                    } catch (ParseException e) {
+                        Log.e("error parsing event", "error parsing date for event" + eventId);
+                    }
+                }
+
+                // Re-add the markers for the updated events
+                for (Event e : eventList) {
+                    String latitude, longitude;
+                    try {
+                        List<Address> addresses = geocoder.getFromLocationName(e.location, 1);
+                        Address location = addresses.get(0);
+                        LatLng ePos = new LatLng(location.getLatitude(), location.getLongitude());
+                        Marker m = mMap.addMarker(new MarkerOptions()
+                                .position(ePos)
+                                .title("Marker in " + e.name)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin))
+                        );
+                        String eventId = eventToEventId.get(e);
+                        m.setTag(eventId);
+                        eventToPinMap.put(m.getId(), e);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("DatabaseError", "Error fetching data: " + databaseError.getMessage());
+            }
+        });
     }
 
 }
