@@ -254,6 +254,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             TextView description = eventDescriptionView.findViewById(R.id.description_text);
             description.setText(e.getDetails());
 
+            Button deleteButton = eventDescriptionView.findViewById(R.id.deleteButt);
+
             // Create the event description dialog
             AlertDialog eventDescriptionDialog = new AlertDialog.Builder(this)
                     .setView(eventDescriptionView)
@@ -264,6 +266,37 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
             // Set up the close button for the event description dialog
             closeDescButton.setOnClickListener(c -> eventDescriptionDialog.dismiss());
+
+            deleteButton.setOnClickListener(c -> {
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Delete")
+                        .setMessage("Are you sure you want to delete this event?")
+                        .setPositiveButton("Yes", (window, which) -> {
+                            // delete event
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference ref = mDatabase.child("events").child((String)marker.getTag());
+                            ref.removeValue()
+                                    .addOnSuccessListener(eSuccess -> {
+                                        // remove marker
+                                        marker.remove();
+                                        eventDescriptionDialog.dismiss();
+                                        dialog.dismiss();
+                                        Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(eFail -> {
+                                        Toast.makeText(this, "Failed to delete event", Toast.LENGTH_SHORT).show();
+                                    });
+                        })
+                        .setNegativeButton("No", (window, which) -> {
+                            // Dismiss the dialog if "No" is selected
+                            window.dismiss();
+                        });
+
+                // Show the dialog
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
 
             // Show the event description dialog
             eventDescriptionDialog.show();
