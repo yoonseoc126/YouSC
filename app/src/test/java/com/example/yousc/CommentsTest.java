@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommentsCountTest {
+public class CommentsTest {
 
-    /** A JUnit test method to test isqrt. */
+    /* Tests the count # displayed in Comments (#) of the comments page */
     @Test
     public void testCommentsCount() {
         List<Comment> comments = new ArrayList<>(
