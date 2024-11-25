@@ -62,6 +62,10 @@ dependencies {
     //TODO: double check if we can use Firebase auth dependency
     implementation("com.google.firebase:firebase-auth")
 
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.6.1')
+    androidTestImplementation('androidx.test:runner:1.6.1')
+    androidTestImplementation('androidx.test:rules:1.6.1')
+
 }
 secrets {
     // To add your Maps API key to this project:
