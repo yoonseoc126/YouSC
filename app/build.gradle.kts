@@ -29,6 +29,11 @@ android {
             )
         }
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -62,9 +67,9 @@ dependencies {
     //TODO: double check if we can use Firebase auth dependency
     implementation("com.google.firebase:firebase-auth")
 
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.6.1')
-    androidTestImplementation('androidx.test:runner:1.6.1')
-    androidTestImplementation('androidx.test:rules:1.6.1')
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.6.1")
+    androidTestImplementation("androidx.test:rules:1.6.1")
 
 }
 secrets {

@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import android.content.Context;
 
@@ -13,6 +14,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,17 +27,19 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-    public ActivityScenarioRule<MainActivity> activityRule =
+    @Rule
+    public ActivityScenarioRule<MainActivity> activityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
     @Test
     public void testLoginRedirect() {
-        onView(withId(R.id.email))
+        onView(withId(R.id.emailedit))
                 .perform(typeText("testuser@usc.edu"));
-        onView(withId(R.id.pass))
+        onView(withId(R.id.passedit))
                 .perform(typeText("test123"));
 
         onView(withId(R.id.signIn)).perform(click());
 
-         onView(withId(R.id.map)).check(matches(isDisplayed()));
+        // Test that the "Discover" map page has rendered
+         onView(withText("Discover")).check(matches(isDisplayed()));
     }
 }
