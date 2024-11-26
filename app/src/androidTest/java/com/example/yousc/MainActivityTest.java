@@ -39,7 +39,13 @@ public class MainActivityTest {
 
         onView(withId(R.id.signIn)).perform(click());
 
+        try{
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Test that the "Discover" map page has rendered
-         onView(withText("Discover")).check(matches(isDisplayed()));
+        onView(withId(R.id.addEventButton)).check(matches(isDisplayed()));
     }
 }
