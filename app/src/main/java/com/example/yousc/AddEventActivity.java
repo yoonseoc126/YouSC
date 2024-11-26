@@ -1,29 +1,17 @@
 package com.example.yousc;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,17 +80,24 @@ public class AddEventActivity extends AppCompatActivity {
                 time = String.valueOf(editTime.getText());
                 details = String.valueOf(editDetails.getText());
 
-                if (TextUtils.isEmpty(event) || TextUtils.isEmpty(location) || TextUtils.isEmpty(time) || TextUtils.isEmpty(details)) {
-                    Toast.makeText(AddEventActivity.this, "Please fill out all required forms", Toast.LENGTH_SHORT).show();
+                InputValidator inputValidator = new InputValidator();
+
+                String inputEmptyError = inputValidator.checkEmptyAddEvent(event, location, time, details);
+                if(inputEmptyError != null){
+                    Toast.makeText(AddEventActivity.this, inputEmptyError, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (date.charAt(2) != '/' || date.charAt(5) != '/' || date.length() != 10) {
-                    Toast.makeText(AddEventActivity.this, "Date must be formatted in mm/dd/yyyy", Toast.LENGTH_SHORT).show();
+                String dateFormatError = inputValidator.checkDateFormat(date);
+
+                if (dateFormatError != null) {
+                    Toast.makeText(AddEventActivity.this, dateFormatError, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (time.charAt(2) != ':' ||time.length() != 5) {
-                    Toast.makeText(AddEventActivity.this, "Time must be formatted in hh:mm", Toast.LENGTH_SHORT).show();
+
+                String timeFormatError = inputValidator.checkTimeFormat(time);
+                if(timeFormatError != null){
+                    Toast.makeText(AddEventActivity.this, timeFormatError, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
