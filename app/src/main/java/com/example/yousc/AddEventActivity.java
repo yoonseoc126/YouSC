@@ -119,8 +119,11 @@ public class AddEventActivity extends AppCompatActivity {
 
                     Double latitude = locationObject.getLatitude();
                     Double longitude = locationObject.getLongitude();
-                    if(latitude < 34.010860 || latitude > 34.031064 || longitude < -118.300248 || longitude > -118.264672){
-                        Toast.makeText(AddEventActivity.this, "Event must be within USC Fryft zone", Toast.LENGTH_SHORT).show();
+
+                    EventHelper latLongHelper = new EventHelper();
+                    String fryftError = latLongHelper.isWithinFryft(latitude, longitude);
+                    if(fryftError != null){
+                        Toast.makeText(AddEventActivity.this, fryftError, Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else {

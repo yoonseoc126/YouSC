@@ -1,7 +1,6 @@
 package com.example.yousc;
 
 import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,5 +25,12 @@ public class EventHelper {
             return false;
         }
         return false;
+    }
+
+    public String isWithinFryft(double latitude, double longitude){
+        if(latitude < 34.010860 || latitude > 34.031064 || longitude < -118.300248 || longitude > -118.264672){
+            return "Event must be within USC Fryft zone";
+        }
+        return null;
     }
 }
