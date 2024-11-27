@@ -59,6 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eventText"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editEventName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Event Name"
@@ -92,6 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/LocationText"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editLocation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Location"
@@ -125,6 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DateText"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editEventDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Date.."
@@ -157,6 +160,7 @@
         app:layout_constraintTop_toBottomOf="@+id/TimeText"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editEventTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="hh:mm"
@@ -190,6 +194,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DetailsText"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Details"

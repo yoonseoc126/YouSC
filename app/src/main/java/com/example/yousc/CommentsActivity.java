@@ -72,6 +72,7 @@ public class CommentsActivity extends AppCompatActivity {
         editComment = (TextInputEditText) commentLayout.getEditText();
 
         commentsList = new ArrayList<>();
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("events").child(eventId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -80,16 +81,23 @@ public class CommentsActivity extends AppCompatActivity {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    //TODO: fetch comments, but figure out adding comments first
                     Event e = task.getResult().getValue(Event.class);
-                    commentsList = e.getComments();
-                    Integer commentsListSize = commentsList.size();
-                    numCommentsHeaderView = findViewById(R.id.commentsTitle);
-                    numCommentsHeaderView.setText("Comments (" + commentsListSize.toString() + ")");
-                    commentAdapter = new CommentAdapter(commentsList, userEmail);
-                    recyclerView.setAdapter(commentAdapter);
-                    System.out.println("SUCCESS GRABBING COMMENTS");
+                    if (!validCommentStruct(e)) {
+                        return;
+                    }
+                    commentsList = handleCommentFetch(commentsList, e);
                 }
+
+//                    //TODO: fetch comments, but figure out adding comments first
+//                    Event e = task.getResult().getValue(Event.class);
+//                    commentsList = e.getComments();
+//                    Integer commentsListSize = commentsList.size();
+//                    numCommentsHeaderView = findViewById(R.id.commentsTitle);
+//                    numCommentsHeaderView.setText("Comments (" + commentsListSize.toString() + ")");
+//                    commentAdapter = new CommentAdapter(commentsList, userEmail);
+//                    recyclerView.setAdapter(commentAdapter);
+//                    System.out.println("SUCCESS GRABBING COMMENTS");
+//                }
             }
         });
 
@@ -138,4 +146,27 @@ public class CommentsActivity extends AppCompatActivity {
 
 
     }
+
+    List<Comment> handleCommentFetch(List<Comment> commentsList, Event e){
+        commentsList = e.getComments();
+        Integer commentsListSize = commentsList.size();
+        numCommentsHeaderView = findViewById(R.id.commentsTitle);
+        numCommentsHeaderView.setText("Comments (" + commentsListSize.toString() + ")");
+        commentAdapter = new CommentAdapter(commentsList, userEmail);
+        recyclerView.setAdapter(commentAdapter);
+        System.out.println("SUCCESS GRABBING COMMENTS");
+        return commentsList;
+    }
+
+    boolean validCommentStruct(Event e) {
+        List<Comment> commentsList = e.getComments();
+        for (Comment c : commentsList) {
+            if (c.getText() == null || c.getUsername() == null || c.getTime() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

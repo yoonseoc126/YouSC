@@ -56,9 +56,8 @@ public class ForgotPassword extends AppCompatActivity {
                 String email;
                 email = String.valueOf(editEmail.getText());
 
-                if(TextUtils.isEmpty(email))
-                {
-                    Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                boolean cont = validateEmail(email);
+                if (!cont) {
                     return;
                 }
                 mAuth.sendPasswordResetEmail(email)
@@ -98,4 +97,15 @@ public class ForgotPassword extends AppCompatActivity {
             return insets;
         });
     }
+    public boolean validateEmail(String email) {
+        if(TextUtils.isEmpty(email))
+        {
+            Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 }

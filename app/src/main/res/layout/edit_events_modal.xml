@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editEvent"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventName"
+        android:id="@+id/eventNameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eventText"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventNameEdit"
+            android:id="@+id/editEventNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -76,10 +76,10 @@
         android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameEdit"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/location"
+        android:id="@+id/locationEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/LocationText"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/locationEdit"
+            android:id="@+id/editLocationEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -112,10 +112,10 @@
         android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/locationEdit"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventDate"
+        android:id="@+id/eventDateEdit"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DateText"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventDateEdit"
+            android:id="@+id/editEventDateEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -145,10 +145,10 @@
         android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/DateText"
-        app:layout_constraintTop_toBottomOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/locationEdit"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventTime"
+        android:id="@+id/eventTimeEdit"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -156,11 +156,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/eventDate"
+        app:layout_constraintStart_toEndOf="@+id/eventDateEdit"
         app:layout_constraintTop_toBottomOf="@+id/TimeText"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventTimeEdit"
+            android:id="@+id/editEventTimeEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -180,10 +180,10 @@
         android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventTime"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeEdit"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Details"
+        android:id="@+id/DetailsEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -195,7 +195,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DetailsText"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/DetailsEdit"
+            android:id="@+id/editDetailsEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -216,7 +216,7 @@
         android:paddingBottom="30dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Details"
+        app:layout_constraintTop_toBottomOf="@+id/DetailsEdit"
         />
     <Button
         android:id="@id/goBackButt"

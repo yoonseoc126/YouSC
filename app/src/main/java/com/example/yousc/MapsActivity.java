@@ -55,11 +55,11 @@ import java.util.Objects;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    public GoogleMap mMap;
     private List<Event> eventList;
     private List<String> eventIdList;
     private Geocoder geocoder;
-    private Map<String, Event> eventToPinMap;
+    public Map<String, Event> eventToPinMap;
     private Map<Event, String> eventToEventId;
     private NavigationBarView bottomNavigationView;
 
