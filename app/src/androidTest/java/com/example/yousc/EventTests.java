@@ -44,9 +44,9 @@ public class EventTests {
     @Test
     public void testLoginRedirect() {
         Intents.init();
-        onView(withId(R.id.editEmail))
+        onView(withId(R.id.emailedit))
                 .perform(typeText("testuser@usc.edu"));
-        onView(withId(R.id.editPassword))
+        onView(withId(R.id.passedit))
                 .perform(typeText("test123"));
         onView(withId(R.id.signIn)).perform(click());
 
@@ -71,9 +71,9 @@ public class EventTests {
         String expectedUsername = "testuser@usc.edu";
 
         // Login with test user credentials
-        onView(withId(R.id.editEmail))
+        onView(withId(R.id.emailedit))
                 .perform(typeText("testuser@usc.edu"));
-        onView(withId(R.id.editPassword))
+        onView(withId(R.id.passedit))
                 .perform(typeText("test123"));
         onView(withId(R.id.signIn)).perform(click());
 
