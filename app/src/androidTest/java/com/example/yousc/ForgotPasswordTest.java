@@ -1,12 +1,8 @@
 package com.example.yousc;
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.intent.matcher.IntentMatchers;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,19 +22,22 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class AddEventTest {
+public class ForgotPasswordTest {
 
     @Rule
-    public ActivityScenarioRule<MapsActivity> activityRule =
-            new ActivityScenarioRule<>(MapsActivity.class);
+    public ActivityScenarioRule<MainActivity> activityRule =
+            new ActivityScenarioRule<>(MainActivity.class);
+
     @Test
-    public void testAddEventRedirect()
+    public void testForgotPasswordRedirect()
     {
         //add event button being displayed
-        onView(withId(R.id.addEventButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.forgotPass)).check(matches(isDisplayed()));
 
         //click on add event button
-        onView(withId(R.id.addEventButton)).perform(click());
-        onView(withId(R.id.eventCloseButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.forgotPass)).perform(click());
+
+        onView(withId(R.id.forgot_password_banner)).check(matches(isDisplayed()));
+
     }
 }

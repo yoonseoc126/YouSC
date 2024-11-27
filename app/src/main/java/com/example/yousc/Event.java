@@ -13,7 +13,7 @@ import java.util.List;
 
 //TODO: add comment functionality
 //event model class
-public class Event{
+public class Event {
     public String name;
     public String location;
     public String date;
@@ -27,12 +27,12 @@ public class Event{
     private String authorEmail;
 
 
-
     public Event() {
         this.upvotes = 0;
         this.downvotes = 0;
         comments = new ArrayList<>();
     }
+
     public Event(String name, String location, String date, String time, String details, Integer upvotes, Integer downvotes, String authorEmail) {
         this.name = name;
         this.location = location;
@@ -47,70 +47,84 @@ public class Event{
         comments = new ArrayList<>();
     }
 
-    public String getName () {
+    public String getName() {
         return this.name;
     }
-    public String getLocation () {
+
+    public String getLocation() {
         return this.location;
     }
-    public String getDetails () {
+
+    public String getDetails() {
         return this.details;
     }
-    public String getDate () {
+
+    public String getDate() {
         return this.date;
     }
+
     public String getTime() {
         return this.time;
     }
-    public Integer getUpvotes () {
+
+    public Integer getUpvotes() {
         return this.upvotes;
     }
+
     public Integer getDownvotes() {
         return this.downvotes;
     }
-    public String getAuthorEmail() {return this.authorEmail;}
+
+    public String getAuthorEmail() {
+        return this.authorEmail;
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
+
     public Integer getNumComments() {
         if (comments == null) {
             return 0;
         }
         return comments.size();
     }
-    public void upvote(){
-        if(!userHasUpvoted)
-        {
-            if(userHasDownvoted)
-            {
+
+    public void upvote() {
+        if (!userHasUpvoted) {
+            if (userHasDownvoted) {
                 downvotes--;
                 userHasDownvoted = false;
             }
             upvotes++;
-            userHasUpvoted = false;
-        }
-        else{
+            userHasUpvoted = true;
+        } else {
             upvotes--;
             userHasUpvoted = false;
         }
     }
-    public void downvote()
-    {
-        if (!userHasDownvoted)
-        {
-            if (userHasUpvoted)
-            {
+
+    public void downvote() {
+        if (!userHasDownvoted) {
+            if (userHasUpvoted) {
                 upvotes--;
                 userHasUpvoted = false;
             }
             downvotes++;
             userHasDownvoted = true;
-        }
-        else {
+        } else {
             downvotes--;
             userHasDownvoted = false;
         }
     }
 
+    public void setUpvotes(int i) {
+        upvotes = i;
+    }
 
+    public void setDownvotes(int i) {
+        downvotes = i;
+    }
 }
+
+

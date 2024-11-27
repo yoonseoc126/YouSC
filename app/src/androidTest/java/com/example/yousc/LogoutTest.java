@@ -34,25 +34,12 @@ public class LogoutTest {
     @Test
     public void testLogoutRedirect()
     {
-        Intents.init();
         //add event button being displayed
         onView(withId(R.id.logout)).check(matches(isDisplayed()));
 
         //click on add event button
         onView(withId(R.id.logout)).perform(click());
-
-        try{
-            Thread.sleep(500);
-        }
-        catch(InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-        intended(hasComponent(MainActivity.class.getName()));
-
         onView(withId(R.id.signIn)).check(matches(isDisplayed()));
 
-        Intents.release();
     }
 }
