@@ -55,11 +55,11 @@ import java.util.Objects;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    public GoogleMap mMap;
     private List<Event> eventList;
     private List<String> eventIdList;
     private Geocoder geocoder;
-    private Map<String, Event> eventToPinMap;
+    public Map<String, Event> eventToPinMap;
     private Map<Event, String> eventToEventId;
     private NavigationBarView bottomNavigationView;
 
@@ -128,21 +128,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
-                    System.out.println("Printing event: " + eventId);
                     // only add event if date time after current date time
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date currentDate = new Date();
-                    String eventDateTime = event.getDate() + " " + event.getTime();
-                    System.out.println("Printing date: " + eventDateTime);
-                    try {
-                        Date eventDate = dateFormat.parse(eventDateTime);
-                        if (eventDate.after(currentDate)) {
-                            eventList.add(event);
-                            eventToEventId.put(event, eventId);
-                        }
-                    } catch (ParseException e) {
-                        // error for invalid formats
-                        Log.e("error parsing event", "error parsing date for event" + eventId);
+                    EventHelper eventHelper = new EventHelper();
+                    if (eventHelper.isInFuture(event)) {
+                        eventList.add(event);
+                        eventToEventId.put(event, eventId);
                     }
                 }
 
@@ -403,9 +393,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 eventList.clear();
+                List<Event> unfilteredEvents = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String eventId = snapshot.getKey();
                     Event event = snapshot.getValue(Event.class);
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     Date currentDate = new Date();
                     String eventDateTime = event.getDate() + " " + event.getTime();

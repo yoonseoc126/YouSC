@@ -18,6 +18,13 @@
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="testEmptyCreateEventRedirect()">
+      <SelectionState runConfigName="RenderEventDetails">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="MainActivity">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="AddEventsError">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

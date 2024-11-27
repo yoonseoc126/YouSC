@@ -29,6 +29,11 @@ android {
             )
         }
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -45,7 +50,9 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.play.services.maps)
+//    implementation(libs.espresso.contrib) // this seems to conflict duplicate classes?
     implementation(libs.espresso.intents)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -57,11 +64,17 @@ dependencies {
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-database")
 
     //TODO: double check if we can use Firebase auth dependency
     implementation("com.google.firebase:firebase-auth")
+
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.6.1")
+    androidTestImplementation("androidx.test:rules:1.6.1")
+
+    testImplementation("org.mockito:mockito-inline:3.+")
+    testImplementation("org.robolectric:robolectric:4.10.3")
 
 }
 secrets {

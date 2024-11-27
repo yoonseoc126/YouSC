@@ -82,15 +82,12 @@ public class MainActivity extends AppCompatActivity {
                 String email, password;
                 email = String.valueOf(editEmail.getText());
                 password = String.valueOf(editPass.getText());
+                InputValidator inputValidator = new InputValidator();
 
-                if(TextUtils.isEmpty(email))
+                String loginInputError = inputValidator.checkEmptyLogin(email, password);
+                if(loginInputError != null)
                 {
-                    Toast.makeText(MainActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(password))
-                {
-                    Toast.makeText(MainActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, loginInputError, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
