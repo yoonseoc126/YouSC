@@ -1,6 +1,11 @@
 package com.example.yousc;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class InputValidator {
     public String checkEmptyLogin(String email, String password){
@@ -35,5 +40,22 @@ public class InputValidator {
             return "Time must be formatted in hh:mm";
         }
         return null;
+    }
+
+    public String checkDateInFuture(String date, String time){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date currentDate = new Date();
+        String eventDateTime = date + " " + time;
+        try {
+            Date eventDate = dateFormat.parse(eventDateTime);
+            if (eventDate.after(currentDate)) {
+                return null;
+            }
+        } catch (ParseException e) {
+            // error for invalid formats
+            Log.e("error parsing event", "error parsing date for event");
+            return "Error parsing date for event,";
+        }
+        return "Event is not in the future.";
     }
 }

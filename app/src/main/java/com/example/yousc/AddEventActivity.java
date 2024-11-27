@@ -101,6 +101,12 @@ public class AddEventActivity extends AppCompatActivity {
                     return;
                 }
 
+                String dateValidateError = inputValidator.checkDateInFuture(date, time);
+                if(dateValidateError != null){
+                    Toast.makeText(AddEventActivity.this, dateValidateError, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 List<Address> addresses = null;
                 try {
                     addresses = geocoder.getFromLocationName(location, 1);
