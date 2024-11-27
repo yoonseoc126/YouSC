@@ -11,13 +11,13 @@
       <SelectionState runConfigName="testGoBackRedirect()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testAddEventRedirect()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="testLogoutRedirect()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="testInvalidLoginRedirect()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="testEmptyForgotPassRedirect()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
