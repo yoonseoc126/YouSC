@@ -41,7 +41,7 @@ public class CloseDetailTest {
         //click on add event button
         onView(withId(R.id.eventCloseButton)).perform(click());
 
-        onView(withId(R.id.map)).check(matches(isDisplayed()));
+        onView(withId(R.id.detailsButton)).check(matches(isDisplayed()));
 
         Intents.release();
     }
