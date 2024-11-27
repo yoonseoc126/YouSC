@@ -26,20 +26,20 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class AddEventTest {
+public class CloseDescriptionTest {
 
     @Rule
     public ActivityScenarioRule<MapsActivity> activityRule =
             new ActivityScenarioRule<>(MapsActivity.class);
     @Test
-    public void testAddEventRedirect()
+    public void testCloseDescriptionRedirect()
     {
         Intents.init();
         //add event button being displayed
-        onView(withId(R.id.addEventButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.closeDescButton)).check(matches(isDisplayed()));
 
         //click on add event button
-        onView(withId(R.id.addEventButton)).perform(click());
+        onView(withId(R.id.closeDescButton)).perform(click());
 
         try{
             Thread.sleep(500);
@@ -49,9 +49,7 @@ public class AddEventTest {
             e.printStackTrace();
         }
 
-        intended(hasComponent(AddEventActivity.class.getName()));
-
-        onView(withId(R.id.eventCloseButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.detailsButton)).check(matches(isDisplayed()));
 
         Intents.release();
     }

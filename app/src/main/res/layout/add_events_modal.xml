@@ -213,7 +213,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Details"
         />
-    
+
     <Button
         android:id="@+id/createEventButton"
         android:layout_width="match_parent"

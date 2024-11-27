@@ -11,4 +11,9 @@
     <item name="upvoteCount" type="id" />
     <item name="downvoteCount" type="id" />
     <item name="closeDescButton" type="id" />
+    <item name="editEventName" type="id" />
+    <item name="editLocation" type="id" />
+    <item name="editEventDate" type="id" />
+    <item name="editEventTime" type="id" />
+    <item name="editDetails" type="id" />
 </resources>
