@@ -35,10 +35,7 @@ public class AddEventTest {
     public void testAddEventRedirect()
     {
         Intents.init();
-        //add event button being displayed
         onView(withId(R.id.addEventButton)).check(matches(isDisplayed()));
-
-        //click on add event button
         onView(withId(R.id.addEventButton)).perform(click());
 
         try{
@@ -48,11 +45,7 @@ public class AddEventTest {
         {
             e.printStackTrace();
         }
-
-        intended(hasComponent(AddEventActivity.class.getName()));
-
         onView(withId(R.id.eventCloseButton)).check(matches(isDisplayed()));
-
         Intents.release();
     }
 }

@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-// DONE
 @RunWith(AndroidJUnit4.class)
 public class AddEventsRedirect {
 
