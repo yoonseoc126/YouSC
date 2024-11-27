@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class voteActivity extends AppCompatActivity {
 
-    private Button upvoteButt, downvoteButt;
+    public Button upvoteButt;
+    public Button downvoteButt;
     private TextView upvoteCount, downvoteCount;
-    private Event event;
+    public Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,7 +57,7 @@ public class voteActivity extends AppCompatActivity {
         });
     }
 
-    private void updateButtColors()
+    public void updateButtColors()
     {
         if (event.userHasUpvoted)
         {
