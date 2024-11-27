@@ -71,14 +71,8 @@ public class createAccount extends AppCompatActivity {
                 email = String.valueOf(editEmail.getText());
                 password = String.valueOf(editPass.getText());
 
-                if(TextUtils.isEmpty(email))
-                {
-                    Toast.makeText(createAccount.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(password))
-                {
-                    Toast.makeText(createAccount.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                boolean validCredentials = checkTextFields(email, password);
+                if (!validCredentials) {
                     return;
                 }
 
@@ -105,5 +99,23 @@ public class createAccount extends AppCompatActivity {
         });
 
     }
+
+    // Return true if both email and password fields are filled out. Return false if either are not.
+    boolean checkTextFields(String email, String password) {
+        if(TextUtils.isEmpty(email))
+        {
+            Toast.makeText(createAccount.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(password))
+        {
+            Toast.makeText(createAccount.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 }

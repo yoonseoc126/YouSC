@@ -50,23 +50,23 @@ public class EditEventActivity extends AppCompatActivity {
         location = intent.getStringExtra("LOCATION");
         details = intent.getStringExtra("DETAILS");
 
-        TextInputLayout eventLayout = findViewById(R.id.eventName);
+        TextInputLayout eventLayout = findViewById(R.id.eventNameEdit);
         editEvent = (TextInputEditText) eventLayout.getEditText();
         if (editEvent != null) editEvent.setText(event); // Set initial text
 
-        TextInputLayout locationLayout = findViewById(R.id.location);
+        TextInputLayout locationLayout = findViewById(R.id.locationEdit);
         editLocation = (TextInputEditText) locationLayout.getEditText();
         if (editLocation != null) editLocation.setText(location);
 
-        TextInputLayout dateLayout = findViewById(R.id.eventDate);
+        TextInputLayout dateLayout = findViewById(R.id.eventDateEdit);
         editDate = (TextInputEditText) dateLayout.getEditText();
         if (editDate != null) editDate.setText(date);
 
-        TextInputLayout timeLayout = findViewById(R.id.eventTime);
+        TextInputLayout timeLayout = findViewById(R.id.eventTimeEdit);
         editTime = (TextInputEditText) timeLayout.getEditText();
         if (editTime != null) editTime.setText(time);
 
-        TextInputLayout detailLayout = findViewById(R.id.Details);
+        TextInputLayout detailLayout = findViewById(R.id.DetailsEdit);
         editDetails = (TextInputEditText) detailLayout.getEditText();
         if (editDetails != null) editDetails.setText(details);
 
