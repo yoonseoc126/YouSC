@@ -22,7 +22,6 @@ import java.util.concurrent.CountDownLatch;
 @RunWith(RobolectricTestRunner.class)
 public class CommentFetchTest {
 
-    /*  IN PROGRESS */
     @Test
     public void testCommentFetchFormat() {
         String testEventName = "Test Event";

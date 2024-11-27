@@ -7,7 +7,6 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
 
-// DONE
 @RunWith(RobolectricTestRunner.class)
 public class ForgotPasswordTests {
     private ForgotPassword testAccount;

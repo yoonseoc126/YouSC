@@ -29,12 +29,8 @@ public class AddCommentRender {
         String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
         String testComment = "Test Comment";
         String expectedUsername = "testuser@usc.edu";
-
         // Click on test event and check comments
-
-
         // Ask TA about this because the google maps stuff needs too much code
-
         onView(withId(R.id.editTextComment))
                 .perform(typeText(testComment));
         onView(withId(R.id.commentSubmitButton))
@@ -42,13 +38,9 @@ public class AddCommentRender {
         onView(withId(R.id.map)).check(matches(isDisplayed()));
 //        onView(withId(R.id.recyclerView))
 //                .check(matches(allOf(
-//                        // Check comment text
 //                        hasDescendant(withText(containsString(testComment))),
-//                        // Check username
 //                        hasDescendant(withText(containsString(expectedUsername))),
-//                        // Check date
 //                        hasDescendant(withText(containsString(currentDate))),
-//                        // Check time
 //                        hasDescendant(withText(containsString(currentTime)))
 //                )));
     }
