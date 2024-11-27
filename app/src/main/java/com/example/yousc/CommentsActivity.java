@@ -82,6 +82,9 @@ public class CommentsActivity extends AppCompatActivity {
                 }
                 else {
                     Event e = task.getResult().getValue(Event.class);
+                    if (!validCommentStruct(e)) {
+                        return;
+                    }
                     commentsList = handleCommentFetch(commentsList, e);
                 }
 
@@ -154,4 +157,16 @@ public class CommentsActivity extends AppCompatActivity {
         System.out.println("SUCCESS GRABBING COMMENTS");
         return commentsList;
     }
+
+    boolean validCommentStruct(Event e) {
+        List<Comment> commentsList = e.getComments();
+        for (Comment c : commentsList) {
+            if (c.getText() == null || c.getUsername() == null || c.getTime() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
