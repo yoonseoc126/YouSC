@@ -71,6 +71,9 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.6.1")
     androidTestImplementation("androidx.test:rules:1.6.1")
 
+    testImplementation("org.mockito:mockito-inline:3.+")
+    testImplementation("org.robolectric:robolectric:4.10.3")
+
 }
 secrets {
     // To add your Maps API key to this project:
