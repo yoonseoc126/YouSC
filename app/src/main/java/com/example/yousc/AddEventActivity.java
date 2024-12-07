@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,8 @@ public class AddEventActivity extends AppCompatActivity {
     ImageButton eventClose;
     private FirebaseAuth mAuth;
     private Geocoder geocoder;
+    private NavigationBarView bottomNavigationView;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,25 @@ public class AddEventActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.discover) {
+                    Intent intent = new Intent(AddEventActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(AddEventActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+                return true;
+            }
+        });
 
 
         createEvent.setOnClickListener(new View.OnClickListener() {

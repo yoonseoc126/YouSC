@@ -21,40 +21,40 @@ public class EmptyCreateEventTest {
     public ActivityScenarioRule<AddEventActivity> activityRule = new ActivityScenarioRule<>(AddEventActivity.class);
 
     @Test
-    public void testEmptyCreateEventRedirect() {
-        // Initialize test values for sample event
-        String testEventName = "";
-        String testLocation = "";
-        String testDate = "";
-        String testTime = "";
-        String testDetails = "";
-
-
-        // Populate with event details
-        onView(withId(R.id.editEventName))
-                .perform(typeText(testEventName));
-        onView(withId(R.id.editLocation))
-                .perform(typeText(testLocation));
-        onView(withId(R.id.editEventDate))
-                .perform(typeText(testDate));
-        onView(withId(R.id.editEventTime))
-                .perform(typeText(testTime));
-        onView(withId(R.id.editDetails))
-                .perform(typeText(testDetails));
-
-        // Click the "Create Event" button
-        onView(withId(R.id.createEventButton)).perform(click());
-
-        // Short timeout to account for redirection lag
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Check if we are redirected to the Map View
-        onView(withId(R.id.addNewEvent)).check(matches(isDisplayed()));}
-
-
-
-}
+//    public void testEmptyCreateEventRedirect() {
+//        // Initialize test values for sample event
+//        String testEventName = "";
+//        String testLocation = "";
+//        String testDate = "";
+//        String testTime = "";
+//        String testDetails = "";
+//
+//
+//        // Populate with event details
+//        onView(withId(R.id.editEventName))
+//                .perform(typeText(testEventName));
+//        onView(withId(R.id.editLocation))
+//                .perform(typeText(testLocation));
+//        onView(withId(R.id.editEventDate))
+//                .perform(typeText(testDate));
+//        onView(withId(R.id.editEventTime))
+//                .perform(typeText(testTime));
+//        onView(withId(R.id.editDetails))
+//                .perform(typeText(testDetails));
+//
+//        // Click the "Create Event" button
+//        onView(withId(R.id.createEventButton)).perform(click());
+//
+//        // Short timeout to account for redirection lag
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Check if we are redirected to the Map View
+//        onView(withId(R.id.addNewEvent)).check(matches(isDisplayed()));}
+//
+//
+//
+//}

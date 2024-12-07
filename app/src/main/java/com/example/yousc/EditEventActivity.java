@@ -5,14 +5,17 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +34,8 @@ public class EditEventActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String eventId;
     private Geocoder geocoder;
+    private NavigationBarView bottomNavigationView;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,25 @@ public class EditEventActivity extends AppCompatActivity {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.discover) {
+                    Intent intent = new Intent(EditEventActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(EditEventActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+                return true;
+            }
+        });
 
         updateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
