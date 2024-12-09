@@ -246,8 +246,6 @@
         android:background="@color/white"
         app:itemIconTint="@color/usc_red"
         app:itemTextColor="@color/usc_red"
-        app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
-        app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
         app:itemRippleColor="@android:color/transparent"
         app:itemBackground="@android:color/transparent"
         app:menu="@menu/bottom_nav_menu" />

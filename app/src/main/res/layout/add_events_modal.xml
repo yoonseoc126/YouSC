@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
 
     <!-- Title -->
     <ImageButton
@@ -231,16 +232,14 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/createEventButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         app:itemIconTint="@color/usc_red"
         app:itemTextColor="@color/usc_red"
-        app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
-        app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
         app:itemRippleColor="@android:color/transparent"
         app:itemBackground="@android:color/transparent"
         app:menu="@menu/bottom_nav_menu" />
